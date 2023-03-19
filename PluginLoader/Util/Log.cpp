@@ -1,3 +1,4 @@
+#include <windows.h> // including this to shut intellisense up
 #include <stdio.h>
 #include <time.h>
 
