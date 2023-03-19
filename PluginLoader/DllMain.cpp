@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include "Plugins.hpp"
+HMODULE __SDK_Module; // HACK
 
 BOOL WINAPI
 DllMain(HMODULE Module, DWORD Reason, void *)

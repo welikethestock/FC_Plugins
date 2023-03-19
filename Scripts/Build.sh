@@ -1,18 +1,18 @@
 BIN=/home/razor/msvc/bin/x64 . /home/razor/msvc-wine/msvcenv-native.sh
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O2 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -fuse-ld=lld -o dbdata.dll \
         -D_USRDLL -D_WINDLL \
         ../Proxy/DBData.cpp
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O2 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
         -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
         ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Hooks.cpp
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O2 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
         -fuse-ld=lld -o HighPingKickFix.dll \
         -D_USRDLL -D_WINDLL \
