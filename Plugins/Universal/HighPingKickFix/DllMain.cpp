@@ -1,8 +1,17 @@
 #include <windows.h>
-#include "Util/Signatures.hpp"
+#include <stdio.h>
+#include "SDK.hpp"
 
-__declspec(dllexport)
-bool Initialize(HMODULE Module)
+void InstallPatch()
 {
+    
+}
+
+PLUGIN_ENTRY()
+{
+    CloseHandle(
+        CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)(InstallPatch), NULL, 0, NULL)
+    );
+
     return true;
 }

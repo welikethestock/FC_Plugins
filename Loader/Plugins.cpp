@@ -7,7 +7,7 @@ bool Plugins::Load(HMODULE Module)
     printf("Loading plugins...\n");
 
     WIN32_FIND_DATA FindData;
-    HANDLE FindHandle = FindFirstFileA(".\\*.dll", &FindData);
+    HANDLE FindHandle = FindFirstFileA(".\\plugins\\*.dll", &FindData);
 
     if(FindHandle == NULL)
     {
@@ -20,7 +20,10 @@ bool Plugins::Load(HMODULE Module)
     {
         printf("Attempting to load %s...\n", FindData.cFileName);
 
-        HMODULE Plugin = LoadLibraryA(FindData.cFileName);
+        char Path[MAX_PATH];
+        sprintf(Path, ".\\plugins\\%s", FindData.cFileName);
+
+        HMODULE Plugin = LoadLibraryA(Path);
         if(Plugin == NULL)
         {
             printf("Failed loading %s...\n", FindData.cFileName);

@@ -14,6 +14,7 @@ DllMain(HMODULE Module, DWORD Reason, void *)
     if(Reason == DLL_PROCESS_ATTACH)
     {
         AllocConsole();
+        freopen("CONOUT$", "w", stdout);
 
         if(!Plugins::Load(Module))
         {
