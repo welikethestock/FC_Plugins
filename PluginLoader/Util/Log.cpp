@@ -8,6 +8,6 @@ void SDK_Util_Log(const char *Message)
     time_t      Time = time(NULL);
     struct tm   *Info = localtime(&Time);
 
-    strftime(Buffer, sizeof(Buffer), "%m/%d/%Y %H:%M", Info);
+    strftime(Buffer, sizeof(Buffer), "%m/%d/%Y %H:%M:%S", Info);
     printf("[%s]: %s", Buffer, Message);
 }
