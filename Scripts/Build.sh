@@ -10,7 +10,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
         -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
-        ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Hooks.cpp
+        ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \

@@ -6,6 +6,6 @@
 #include "Util/Module.hpp"
 #include "Util/Macros.hpp"
 #include "Util/Signatures.hpp"
-#include "Util/Hooks.hpp"
+#include "Util/Stubs.hpp"
 
 #endif

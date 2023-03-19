@@ -8,8 +8,6 @@ namespace SDK
 {
     namespace Util
     {
-        struct SHook;
-
         struct SStub
         {
             char *Address;

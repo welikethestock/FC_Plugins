@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <string.h>
-#include "Util/Hooks.hpp"
+#include "Util/Stubs.hpp"
 
 extern "C" __declspec(dllexport)
 void SDK_Util_SetupStub(char *Address, SDK::Util::SStub *Info)
