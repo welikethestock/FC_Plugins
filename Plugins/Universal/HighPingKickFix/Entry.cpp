@@ -11,21 +11,21 @@ void InstallPatch()
     while(true)
     {
         Sleep(10);
-        char *KickAddr = NULL;
+        char *KickAddress = NULL;
 
         if(GetModuleHandleA("FC_m64.dll") != NULL) // fc5 + new dawn
         {
             { // attempt searching for the fc5 sig first
-                KickAddr = (char *)SDK::Util::FindSignature(
+                KickAddress = (char *)SDK::Util::FindSignature(
                     GetModuleHandleA("FC_m64.dll"),
                     "\x4C\x89\x44\x24?\x48\x89\x54\x24?\x48\x89\x4C\x24?\x55\x53\x56\x57\x41\x57\x48\x8D\xAC\x24",
                     "xxxx?xxxx?xxxx?xxxxxxxxxx"
                 );
             }
 
-            if(KickAddr == NULL) // must be new dawn.
+            if(KickAddress == NULL) // must be new dawn.
             {
-                KickAddr = (char *)SDK::Util::FindSignature(
+                KickAddress = (char *)SDK::Util::FindSignature(
                     GetModuleHandleA("FC_m64.dll"),
                     "\x40\x55\x53\x56\x57\x41\x57\x48\x8D\xAC\x24\x00\x00\x00\x00\x48\x81\xEC\x00\x00\x00\x00\x48\x8B\x05\x00\x00\x00\x00\x48\x31\xE0\x48\x89\x85\x00\x00\x00\x00\x49\x89\xCF",
                     "xxxxxxxxxxx????xxx????xxx????xxxxxx????xxx"
@@ -37,12 +37,12 @@ void InstallPatch()
 
         }
 
-        if(KickAddr == NULL) 
+        if(KickAddress == NULL) 
         { 
             continue; 
         } //  well fuck?
 
-        SDK::Util::SetupStub(KickAddr, &s_KickStub);
+        SDK::Util::SetupStub(KickAddress, &s_KickStub);
         SDK::Util::ActivateStub(&s_KickStub);
 
         break;
