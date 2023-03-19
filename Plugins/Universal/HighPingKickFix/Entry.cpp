@@ -48,7 +48,7 @@ void InstallPatch()
         break;
    }
 
-   printf("High Ping Kick disabled (@%p)...\n", s_KickStub.Address);
+   SDK::Util::Log("High Ping Kick disabled (@%p)...\n", s_KickStub.Address);
 }
 
 PLUGIN_ENTRY()
