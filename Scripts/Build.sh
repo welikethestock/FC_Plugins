@@ -17,10 +17,6 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O2 -Wno-deprec
         -D_USRDLL -D_WINDLL \
         ../Proxy/DBData.cpp
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:console -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
-        -fuse-ld=lld -o TestApp.exe \
-        ../TestApp/Main.c
-
 rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/bin/PluginLoader.dll"
 rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/HighPingKickFix.dll"
 
