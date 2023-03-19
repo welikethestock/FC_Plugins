@@ -14,9 +14,9 @@ namespace SDK
             char OldBytes[3];
         };
 
-        void SetupStub(char *Address, SStub *Info)
+        void SetupStub(void *Address, SStub *Info)
         {
-            static void(*s_SetupStub)(char *, SStub *) = (void(*)(char *, SStub *))(GetProcAddress(
+            static void(*s_SetupStub)(void *, SStub *) = (void(*)(void *, SStub *))(GetProcAddress(
                 __SDK_Module, 
                 "SDK_Util_SetupStub"
             ));

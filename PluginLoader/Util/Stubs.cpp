@@ -3,9 +3,9 @@
 #include "Util/Stubs.hpp"
 
 extern "C" __declspec(dllexport)
-void SDK_Util_SetupStub(char *Address, SDK::Util::SStub *Info)
+void SDK_Util_SetupStub(void *Address, SDK::Util::SStub *Info)
 {
-    Info->Address = Address;
+    Info->Address = (char *)(Address);
     memcpy(&Info->OldBytes[0], Address, sizeof(SDK::Util::SStub::OldBytes));
 }
 

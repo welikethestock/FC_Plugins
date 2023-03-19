@@ -11,9 +11,9 @@ bool Plugins::Load(HMODULE Module)
     WIN32_FIND_DATA FindData;
     HANDLE FindHandle = FindFirstFileA(".\\plugins\\*.dll", &FindData);
 
-    if(FindHandle == NULL)
+    if(FindHandle == NULL || FindData.cFileName[0] == '\0')
     {
-        SDK::Util::Log("FindFirstFile failed...\n");
+        SDK::Util::Log("FindFirstFile failed/No plugins found...\n");
 
         return false;
     }
