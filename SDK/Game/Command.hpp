@@ -1,5 +1,5 @@
-#ifndef __SDK_COMMAND__
-#define __SDK_COMMAND__
+#ifndef __SDK_GAME_COMMAND__
+#define __SDK_GAME_COMMAND__
 
 namespace SDK
 {

@@ -1,5 +1,5 @@
-#ifndef __LOAD_PLUGINS__
-#define __LOAD_PLUGINS__
+#ifndef __PLUGINLOADER__PLUGINS
+#define __PLUGINLOADER__PLUGINS
 
 #include <windows.h>
 
