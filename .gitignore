@@ -1,0 +1,6 @@
+.vs/
+.git/
+out/
+*.dll
+*.lib
+*.exe

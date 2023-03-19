@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "windows.h": "c",
+        "stralign.h": "c",
+        "winapifamily.h": "c",
+        "mutex": "c",
+    }
+}
