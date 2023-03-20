@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <psapi.h>
 #include <string.h>
+#include "Util/Macros.hpp"
 
 static 
 size_t GetModuleSize(HMODULE Module)
@@ -11,7 +12,7 @@ size_t GetModuleSize(HMODULE Module)
     return Info.SizeOfImage;
 }
 
-extern "C" __declspec(dllexport)
+EXPORT
 void *SDK_Util_FindSignature(HMODULE Module, const char *Signature, const char *Mask)
 {
     if(Module == NULL)

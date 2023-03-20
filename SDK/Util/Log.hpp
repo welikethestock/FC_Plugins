@@ -4,9 +4,10 @@
 #include <windows.h>
 #include <stdio.h>
 #include "Module.hpp"
+#include "Macros.hpp"
 
 #if defined _LOG_HACK
-extern "C" __declspec(dllexport)
+EXPORT
 void SDK_Util_Log(const char *Message);
 #endif
 

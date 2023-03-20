@@ -1,8 +1,9 @@
 #include <windows.h> // including this to shut intellisense up
 #include <stdio.h>
 #include <time.h>
+#include "Util/Macros.hpp"
 
-extern "C" __declspec(dllexport)
+EXPORT
 void SDK_Util_Log(const char *Message)
 {
     char        Buffer[26];

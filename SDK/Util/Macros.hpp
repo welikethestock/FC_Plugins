@@ -3,11 +3,14 @@
 
 #include <windows.h>
 
+#define EXPORT \
+extern "C" __declspec(dllexport)
+
 #define PLUGIN_ENTRY() \
 HMODULE __SDK_Module; \
 static bool _Initialize(HMODULE); \
-__declspec(dllexport) \
-extern "C" bool Initialize(HMODULE Module) \
+EXPORT \
+bool Initialize(HMODULE Module) \
 { \
     __SDK_Module = Module; \
      \

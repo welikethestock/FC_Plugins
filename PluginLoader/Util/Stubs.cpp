@@ -1,15 +1,16 @@
 #include <windows.h>
 #include <string.h>
 #include "Util/Stubs.hpp"
+#include "Util/Macros.hpp"
 
-extern "C" __declspec(dllexport)
+EXPORT
 void SDK_Util_SetupStub(void *Address, SDK::Util::SStub *Info)
 {
     Info->Address = (char *)(Address);
     memcpy(&Info->OldBytes[0], Address, sizeof(SDK::Util::SStub::OldBytes));
 }
 
-extern "C" __declspec(dllexport)
+EXPORT
 void SDK_Util_ActivateStub(SDK::Util::SStub *Info)
 {
     DWORD OldProtect;
@@ -19,7 +20,7 @@ void SDK_Util_ActivateStub(SDK::Util::SStub *Info)
     VirtualProtect(Info->Address, sizeof(SDK::Util::SStub::OldBytes), OldProtect, &OldProtect);
 }
 
-extern "C" __declspec(dllexport)
+EXPORT
 void SDK_Util_DeactivateStub(SDK::Util::SStub *Info)
 {
     DWORD OldProtect;
