@@ -4,9 +4,6 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                //"/home/razor/msvc/kits/10/Include/10.0.22000.0/shared/", 
-                //"/home/razor/msvc/kits/10/Include/10.0.22000.0/um/",
-                //"/home/razor/msvc/VC/Tools/MSVC/14.35.32215/include/"
                 "/usr/include/wine/windows/"
             ],
             "defines": [],
