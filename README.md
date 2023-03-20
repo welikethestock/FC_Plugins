@@ -8,3 +8,6 @@ To install:<br /><br />
 &nbsp;&nbsp;&nbsp;&nbsp;5) Paste dbdata.dll & PluginLoader.dll there<br />
 &nbsp;&nbsp;&nbsp;&nbsp;6) Repeat steps 3 & 4 for bin_plus<br />
 &nbsp;&nbsp;&nbsp;&nbsp;7) Done<br />
+<br />
+To uninstall:<br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;1) Simply replace dbdata.dll with dbdata.old.dll.
