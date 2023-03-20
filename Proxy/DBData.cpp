@@ -23,7 +23,16 @@ DllMain(void *, DWORD Reason, void *)
             "?getGameTokenInterface@@YAPEAVIGameTokenInterface@@PEAX_K@Z"
         ));
 
-        LoadLibraryA("PluginLoader.dll");
+         if(LoadLibraryA("PluginLoader.dll") == NULL)
+         {
+            //ugly wine hack yikes.
+            INT(WINAPI *MessageBoxA)(HWND, LPCSTR, LPCSTR, UINT) = (INT(WINAPI *)(HWND, LPCSTR, LPCSTR, UINT))(GetProcAddress(
+                GetModuleHandleA("user32.dll"),
+                "MessageBoxA"
+            ));
+
+            MessageBoxA(NULL, "!!ERROR!!: Couldn't load PluginLoader.dll", "!!ERROR!!: Couldn't load PluginLoader.dll", MB_OK);
+         }
     }
 
     return TRUE;
