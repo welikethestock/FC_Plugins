@@ -34,7 +34,11 @@ void InstallPatch()
         }
         else if (GetModuleHandleA("FC_m64d3d12.dll") != NULL) // fc6
         {
-
+            KickAddress = SDK::Util::FindSignature(
+                GetModuleHandleA("FC_m64d3d12.dll"),
+                "\x48\x89\x5C\x24\x00\x55\x56\x57\x41\x54\x41\x55\x41\x56\x41\x57\x48\x8D\xAC\x24\x00\x00\x00\x00\xB8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x48\x2B\xE0\x0F\x29\xB4\x24\x00\x00\x00\x00\x48\x8B\x05\x00\x00\x00\x00\x48\x33\xC4\x48\x89\x85\x00\x00\x00\x00\x49",
+                "xxxx?xxxxxxxxxxxxxxx????x????x????xxxxxxx????xxx????xxxxxx????x"
+            );
         }
 
         if(KickAddress == NULL) 
