@@ -27,7 +27,7 @@
     static ReturnType(* _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name)))(__VA_ARGS__) = (decltype(_CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))))(GetProcAddress( \
         GetModuleHandleA(_LOADER_DLL), \
         _STRING(SDK_FUNCTION_NAME(Category, Name)) \
-    ));
+    ))
 
 #define CALL_SDK_FUNCTION(Category, Name, ...) \
     _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))(__VA_ARGS__)

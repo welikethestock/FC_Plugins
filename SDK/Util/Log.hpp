@@ -17,20 +17,20 @@ namespace SDK
     {
         void Message(const char *Format, ...)
         {
-            char Buffer[512];
+            char    Buffer[512];
             va_list Arguments;
             
             va_start(Arguments, Format);
-            vsnprintf(Buffer, sizeof(Buffer), Format, Arguments);
+            vsnprintf(Buffer, sizeof(Buffer) - 1, Format, Arguments);
             va_end(Arguments);
 
-            #ifndef _LOG_HACK
+        #ifndef _LOG_HACK
             IMPORT_SDK_FUNCTION(void, Log, Message, const char *);
 
             return CALL_SDK_FUNCTION(Log, Message, Buffer);
-            #else
+        #else
             return SDK_Log_Message(Buffer);
-            #endif
+        #endif
         }
     }
 }

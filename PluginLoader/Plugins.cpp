@@ -22,8 +22,8 @@ bool Plugins::Load(HMODULE Module)
     {
         SDK::Log::Message("Attempting to load %s...\n", FindData.cFileName);
 
-        char Path[MAX_PATH];
-        snprintf(Path, sizeof(Path), ".\\plugins\\%s", FindData.cFileName);
+        char Path[MAX_PATH + 1];
+        snprintf(Path, sizeof(Path) - 1, ".\\plugins\\%s", FindData.cFileName);
 
         HMODULE Plugin = LoadLibraryA(Path);
         if(Plugin == NULL)

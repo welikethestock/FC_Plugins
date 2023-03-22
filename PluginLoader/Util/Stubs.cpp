@@ -1,7 +1,6 @@
 #include <windows.h>
 #include <string.h>
 #include "Util/Stubs.hpp"
-#include "Util/Macros.hpp"
 
 struct SStub
 {

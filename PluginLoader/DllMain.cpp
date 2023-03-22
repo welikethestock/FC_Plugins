@@ -1,8 +1,4 @@
-/*
-
-    Loads all mods in /plugins/
-
-*/
+// Loads all mods in /plugins/
 
 #include <windows.h>
 #include <stdio.h>

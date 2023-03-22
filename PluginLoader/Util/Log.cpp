@@ -5,10 +5,10 @@
 
 SDK_FUNCTION(Log, Message, void, const char *Message)
 {
-    char    Buffer[26];
+    char    Buffer[26 + 1];
     time_t  Time = time(NULL);
     tm      *Info = localtime(&Time);
 
-    strftime(Buffer, sizeof(Buffer), "%m/%d/%Y %H:%M:%S", Info);
+    strftime(Buffer, sizeof(Buffer) - 1, "%m/%d/%Y %H:%M:%S", Info);
     printf("[%s]: %s", Buffer, Message);
 }

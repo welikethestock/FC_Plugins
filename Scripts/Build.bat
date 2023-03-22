@@ -15,7 +15,7 @@ clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declaration
         -o ./PluginLoader.dll ^
         -D_USRDLL -D_WINDLL ^
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp ^
-        ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Log.cpp ^
+        ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp ^
         ../PluginLoader/Game/Command.cpp
 
 echo "Compiling HighPingKickFix.dll..."

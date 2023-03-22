@@ -11,6 +11,12 @@ namespace SDK
     {
         struct SDetour
         {
+            template< typename _T >
+            _T GetOriginal()
+            {
+                return (_T)(Address);
+            }
+
             char *Address;
         };
 
@@ -19,6 +25,20 @@ namespace SDK
             IMPORT_SDK_FUNCTION(SDetour *, Detour, Setup, void *);
 
             return CALL_SDK_FUNCTION(Detour, Setup, Address);
+        }
+
+        void Activate(SDetour *Info)
+        {
+            IMPORT_SDK_FUNCTION(void, Detour, Activate, SDetour *);
+
+            return CALL_SDK_FUNCTION(Detour, Activate, Info);
+        }
+
+        void Deactivate(SDetour *Info)
+        {
+            IMPORT_SDK_FUNCTION(void, Detour, Deactivate, SDetour *);
+
+            return CALL_SDK_FUNCTION(Detour, Deactivate, Info);
         }
     }
 }
