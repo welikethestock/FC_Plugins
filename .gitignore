@@ -4,3 +4,6 @@ out/
 *.dll
 *.lib
 *.exe
+*.exp
+*.o
+*.obj
