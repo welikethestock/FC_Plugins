@@ -48,5 +48,5 @@ PLUGIN_ENTRY()
         SDK::Util::Log("Failure finding High Ping Kick address"); 
     }
     
-    return true;
+    return (KickAddress != NULL);
 }
