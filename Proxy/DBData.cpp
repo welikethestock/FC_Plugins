@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "Util/Macros.hpp"
 
 class                       IGameTokenInterface;
 typedef unsigned long long  __uint64;
@@ -18,20 +19,20 @@ DllMain(void *, DWORD Reason, void *)
     {
         HMODULE OriginalModule = LoadLibraryA(".\\dbdata.old.dll");
 
-        getGameTokenInterfaceOriginal = (IGameTokenInterface *(__cdecl *)(void *, __uint64))(GetProcAddress(
+        getGameTokenInterfaceOriginal = (decltype(getGameTokenInterfaceOriginal))(GetProcAddress(
             OriginalModule, 
             "?getGameTokenInterface@@YAPEAVIGameTokenInterface@@PEAX_K@Z"
         ));
 
-         if(LoadLibraryA(".\\PluginLoader.dll") == NULL)
+         if(LoadLibraryA(".\\" _LOADER_DLL) == NULL)
          {
             //ugly wine hack yikes.
-            INT(WINAPI *MessageBoxA)(HWND, LPCSTR, LPCSTR, UINT) = (INT(WINAPI *)(HWND, LPCSTR, LPCSTR, UINT))(GetProcAddress(
+            INT(WINAPI *MessageBoxA)(HWND, LPCSTR, LPCSTR, UINT) = (decltype(MessageBoxA))(GetProcAddress(
                 GetModuleHandleA("user32.dll"),
                 "MessageBoxA"
             ));
 
-            MessageBoxA(NULL, "!!ERROR!!: Couldn't load PluginLoader.dll", "!!ERROR!!: Couldn't load PluginLoader.dll", MB_OK);
+            MessageBoxA(NULL, "!!ERROR!!: Couldn't load " _LOADER_DLL, "!!ERROR!!: Couldn't load " _LOADER_DLL, MB_OK);
          }
     }
 

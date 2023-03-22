@@ -3,6 +3,7 @@ BIN=/home/razor/msvc/bin/x64 . /home/razor/msvc-wine/msvcenv-native.sh
 echo "Compiling dbdata.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -I./../SDK \
         -fuse-ld=lld -o dbdata.dll \
         -D_USRDLL -D_WINDLL \
         ../Proxy/DBData.cpp

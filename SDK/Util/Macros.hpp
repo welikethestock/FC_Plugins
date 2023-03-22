@@ -5,10 +5,12 @@
 
 #include <windows.h>
 
+#define _LOADER_DLL     "PluginLoader.dll"
+
 #define _STRING_E(x)    #x
 #define _STRING(x)      _STRING_E(x)
 
-#define _CONCAT_E(x, y)   x ## y
+#define _CONCAT_E(x, y) x ## y
 #define _CONCAT(x, y)   _CONCAT_E(x, y)
 
 #define EXPORT \
@@ -23,7 +25,7 @@
 
 #define IMPORT_SDK_FUNCTION(ReturnType, Category, Name, ...) \
     static ReturnType(* _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name)))(__VA_ARGS__) = (decltype(_CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))))(GetProcAddress( \
-        GetModuleHandleA("PluginLoader.dll"), \
+        GetModuleHandleA(_LOADER_DLL), \
         _STRING(SDK_FUNCTION_NAME(Category, Name)) \
     ));
 
@@ -33,7 +35,9 @@
 #define PLUGIN_ENTRY() \
     HMODULE __SDK_Module; \
     HMODULE __SDK_Us; \
+     \
     static bool _Initialize(HMODULE, HMODULE); \
+     \
     EXPORT \
     bool Initialize(HMODULE _Module, HMODULE _Us) \
     { \
@@ -42,6 +46,7 @@
          \
         return _Initialize(_Module, _Us); \
     } \
+     \
     bool _Initialize(HMODULE _Module, HMODULE _Us)
 
 #endif

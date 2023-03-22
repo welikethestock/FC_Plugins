@@ -6,21 +6,21 @@
 
 bool Plugins::Load(HMODULE Module)
 {
-    SDK::Util::Log("Loading plugins...\n");
+    SDK::Log::Message("Loading plugins...\n");
 
     WIN32_FIND_DATA FindData;
     HANDLE FindHandle = FindFirstFileA(".\\plugins\\*.dll", &FindData);
 
     if(FindHandle == NULL || FindData.cFileName[0] == '\0')
     {
-        SDK::Util::Log("FindFirstFile failed/No plugins found...\n");
+        SDK::Log::Message("FindFirstFile failed/No plugins found...\n");
 
         return false;
     }
 
     do
     {
-        SDK::Util::Log("Attempting to load %s...\n", FindData.cFileName);
+        SDK::Log::Message("Attempting to load %s...\n", FindData.cFileName);
 
         char Path[MAX_PATH];
         snprintf(Path, sizeof(Path), ".\\plugins\\%s", FindData.cFileName);
@@ -28,28 +28,28 @@ bool Plugins::Load(HMODULE Module)
         HMODULE Plugin = LoadLibraryA(Path);
         if(Plugin == NULL)
         {
-            SDK::Util::Log("Failed loading %s...\n", FindData.cFileName);
+            SDK::Log::Message("Failed loading %s...\n", FindData.cFileName);
 
             continue;
         }
         
-        bool(*Initialize)(HMODULE, HMODULE) = (bool(*)(HMODULE, HMODULE))(GetProcAddress(Plugin, "Initialize"));
+        bool(*Initialize)(HMODULE, HMODULE) = (decltype(Initialize))(GetProcAddress(Plugin, "Initialize"));
         if(Initialize == NULL || !Initialize(Module, Plugin))
         {
-            SDK::Util::Log("Failed initializing %s...\n", FindData.cFileName);
+            SDK::Log::Message("Failed initializing %s...\n", FindData.cFileName);
             FreeLibrary(Module);
 
             continue;
         }
         else
         {
-            SDK::Util::Log("Successfully loaded %s...\n", FindData.cFileName);
+            SDK::Log::Message("Successfully loaded %s...\n", FindData.cFileName);
         }
     } while(FindNextFileA(FindHandle, &FindData));
 
     FindClose(FindHandle);
 
-    SDK::Util::Log("All plugins loaded...\n");
+    SDK::Log::Message("All plugins loaded...\n");
 
     return true;
 }

@@ -3,6 +3,7 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildsTools\VC\Auxilia
 echo "Compiling dbdata.dll..."
 
 clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined ^
+        -I./../SDK ^
         -o ./dbdata.dll ^
         -D_USRDLL -D_WINDLL ^
         ../Proxy/DBData.cpp

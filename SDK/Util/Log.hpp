@@ -13,9 +13,9 @@ void SDK_Log_Message(const char *Message);
 
 namespace SDK
 {
-    namespace Util
+    namespace Log
     {
-        void Log(const char *Format, ...)
+        void Message(const char *Format, ...)
         {
             char Buffer[512];
             va_list Arguments;

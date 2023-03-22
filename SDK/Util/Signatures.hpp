@@ -7,9 +7,9 @@
 
 namespace SDK
 {
-    namespace Util
+    namespace Signature
     {
-        void *FindSignature(HMODULE Module, const char *Signature, const char *Mask)
+        void *Find(HMODULE Module, const char *Signature, const char *Mask)
         {
             IMPORT_SDK_FUNCTION(void *, Signature, Find, HMODULE, const char *, const char *);
 
