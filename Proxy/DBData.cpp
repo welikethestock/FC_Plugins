@@ -16,14 +16,14 @@ DllMain(void *, DWORD Reason, void *)
 {
     if(Reason == DLL_PROCESS_ATTACH)
     {
-        HMODULE OriginalModule = LoadLibraryA("dbdata.old.dll");
+        HMODULE OriginalModule = LoadLibraryA(".\\dbdata.old.dll");
 
         getGameTokenInterfaceOriginal = (IGameTokenInterface *(__cdecl *)(void *, __uint64))(GetProcAddress(
             OriginalModule, 
             "?getGameTokenInterface@@YAPEAVIGameTokenInterface@@PEAX_K@Z"
         ));
 
-         if(LoadLibraryA("PluginLoader.dll") == NULL)
+         if(LoadLibraryA(".\\PluginLoader.dll") == NULL)
          {
             //ugly wine hack yikes.
             INT(WINAPI *MessageBoxA)(HWND, LPCSTR, LPCSTR, UINT) = (INT(WINAPI *)(HWND, LPCSTR, LPCSTR, UINT))(GetProcAddress(

@@ -9,12 +9,13 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
 
 echo "Compiling PluginLoader.dll..."
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage \
         -I./../SDK \
         -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
-        ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Log.cpp
+        ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Log.cpp \
+        ../PluginLoader/Game/Command.cpp
 
 echo "Compiling HighPingKickFix.dll..."
 

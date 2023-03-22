@@ -11,3 +11,9 @@
 <br />
 ## To uninstall:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;1) Simply replace dbdata.dll with dbdata.old.dll.
+
+# How to build:
+
+## Windows
+
+## Linux

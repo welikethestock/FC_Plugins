@@ -4,5 +4,6 @@
 #include <windows.h>
 
 extern HMODULE __SDK_Module;
+extern HMODULE __SDK_Us;
 
 #endif

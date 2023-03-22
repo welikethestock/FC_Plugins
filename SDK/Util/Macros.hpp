@@ -6,16 +6,22 @@
 #define EXPORT \
 extern "C" __declspec(dllexport)
 
+#define SDK_FUNCTION(Category, Name, ReturnType, ...) \
+EXPORT \
+ReturnType SDK_##Category##_##Name(__VA_ARGS__) 
+
 #define PLUGIN_ENTRY() \
 HMODULE __SDK_Module; \
-static bool _Initialize(HMODULE); \
+HMODULE __SDK_Us; \
+static bool _Initialize(HMODULE, HMODULE); \
 EXPORT \
-bool Initialize(HMODULE Module) \
+bool Initialize(HMODULE _Module, HMODULE _Us) \
 { \
-    __SDK_Module = Module; \
+    __SDK_Module    = _Module; \
+    __SDK_Us        = _Us; \
      \
-    return _Initialize(Module); \
+    return _Initialize(_Module, _Us); \
 } \
-bool _Initialize(HMODULE Module)
+bool _Initialize(HMODULE _Module, HMODULE _Us)
 
 #endif

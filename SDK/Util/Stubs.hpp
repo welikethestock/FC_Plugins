@@ -8,27 +8,26 @@ namespace SDK
 {
     namespace Util
     {
-        struct SStub
-        {
-            char *Address;
-            char OldBytes[3];
+        struct SStub 
+        { 
+            char *Address; 
         };
 
-        void SetupStub(void *Address, SStub *Info)
+        SStub *SetupStub(void *Address)
         {
-            static void(*s_SetupStub)(void *, SStub *) = (void(*)(void *, SStub *))(GetProcAddress(
+            static SStub *(*s_SetupStub)(void *) = (SStub *(*)(void *))(GetProcAddress(
                 __SDK_Module, 
-                "SDK_Util_SetupStub"
+                "SDK_Stub_Setup"
             ));
 
-            return s_SetupStub(Address, Info);
+            return s_SetupStub(Address);
         }
 
         void ActivateStub(SStub *Info)
         {
             static void(*s_ActivateStub)(SStub *) = (void(*)(SStub *))(GetProcAddress(
                 __SDK_Module, 
-                "SDK_Util_ActivateStub"
+                "SDK_Stub_Activate"
             ));
 
             return s_ActivateStub(Info);
@@ -38,7 +37,7 @@ namespace SDK
         {
             static void(*s_DeactivateStub)(SStub *) = (void(*)(SStub *))(GetProcAddress(
                 __SDK_Module, 
-                "SDK_Util_DeactivateStub"
+                "SDK_Stub_Deactivate"
             ));
 
             return s_DeactivateStub(Info);

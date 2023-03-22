@@ -33,8 +33,8 @@ bool Plugins::Load(HMODULE Module)
             continue;
         }
         
-        bool(*Initialize)(HMODULE) = (bool(*)(HMODULE))(GetProcAddress(Plugin, "Initialize"));
-        if(Initialize == NULL || !Initialize(Module))
+        bool(*Initialize)(HMODULE, HMODULE) = (bool(*)(HMODULE, HMODULE))(GetProcAddress(Plugin, "Initialize"));
+        if(Initialize == NULL || !Initialize(Module, Plugin))
         {
             SDK::Util::Log("Failed initializing %s...\n", FindData.cFileName);
             FreeLibrary(Module);

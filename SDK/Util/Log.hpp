@@ -8,7 +8,7 @@
 
 #if defined _LOG_HACK
 EXPORT
-void SDK_Util_Log(const char *Message);
+void SDK_Log_Message(const char *Message);
 #endif
 
 namespace SDK
@@ -25,14 +25,14 @@ namespace SDK
             va_end(Arguments);
 
             #ifndef _LOG_HACK
-            static void(*s_Log)(const char *) = (void(*)(const char *))(GetProcAddress(
+            static void(*s_LogMsg)(const char *) = (void(*)(const char *))(GetProcAddress(
                 __SDK_Module, 
-                "SDK_Util_Log"
+                "SDK_Log_Message"
             ));
 
-            return s_Log(Buffer);
+            return s_LogMsg(Buffer);
             #else
-            return SDK_Util_Log(Buffer);
+            return SDK_Log_Message(Buffer);
             #endif
         }
     }

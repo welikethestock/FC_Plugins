@@ -12,7 +12,7 @@ namespace SDK
         {
             static void *(*s_FindSignature)(HMODULE, const char *, const char *) = (void *(*)(HMODULE, const char *, const char *))(GetProcAddress(
                 __SDK_Module, 
-                "SDK_Util_FindSignature"
+                "SDK_Signature_Find"
             ));
 
             return s_FindSignature(Module, Signature, Mask);
