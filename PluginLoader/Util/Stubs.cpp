@@ -9,13 +9,13 @@ struct SStub
     char    OldBytes[3];
 };
 
-SDK_FUNCTION(Stub, Setup, SDK::Util::SStub *, void *Address)
+SDK_FUNCTION(Stub, Setup, SDK::Stub::SStub *, void *Address)
 {
-    SStub* Info = new SStub;
+    ::SStub* Info = new ::SStub;
     Info->Address = (char *)(Address);
     memcpy(&Info->OldBytes[0], Address, sizeof(SStub::OldBytes));
 
-    return (SDK::Util::SStub *)(Info);
+    return (SDK::Stub::SStub *)(Info);
 }
 
 SDK_FUNCTION(Stub, Activate, void, SStub *Info)

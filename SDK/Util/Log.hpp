@@ -25,12 +25,9 @@ namespace SDK
             va_end(Arguments);
 
             #ifndef _LOG_HACK
-            static void(*s_LogMsg)(const char *) = (void(*)(const char *))(GetProcAddress(
-                __SDK_Module, 
-                "SDK_Log_Message"
-            ));
+            IMPORT_SDK_FUNCTION(void, Log, Message, const char *);
 
-            return s_LogMsg(Buffer);
+            return CALL_SDK_FUNCTION(Log, Message, Buffer);
             #else
             return SDK_Log_Message(Buffer);
             #endif

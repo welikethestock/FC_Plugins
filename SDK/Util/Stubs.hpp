@@ -3,44 +3,36 @@
 
 #include <windows.h>
 #include "Module.hpp"
+#include "Macros.hpp"
 
 namespace SDK
 {
-    namespace Util
+    namespace Stub
     {
         struct SStub 
         { 
             char *Address; 
         };
 
-        SStub *SetupStub(void *Address)
+        SStub *Setup(void *Address)
         {
-            static SStub *(*s_SetupStub)(void *) = (SStub *(*)(void *))(GetProcAddress(
-                __SDK_Module, 
-                "SDK_Stub_Setup"
-            ));
+            IMPORT_SDK_FUNCTION(SStub *, Stub, Setup, void *);
 
-            return s_SetupStub(Address);
+            return CALL_SDK_FUNCTION(Stub, Setup, Address);
         }
 
-        void ActivateStub(SStub *Info)
+        void Activate(SStub *Info)
         {
-            static void(*s_ActivateStub)(SStub *) = (void(*)(SStub *))(GetProcAddress(
-                __SDK_Module, 
-                "SDK_Stub_Activate"
-            ));
+            IMPORT_SDK_FUNCTION(void, Stub, Activate, SStub *);
 
-            return s_ActivateStub(Info);
+            return CALL_SDK_FUNCTION(Stub, Activate, Info);
         }
 
-        void DeactivateStub(SStub *Info)
+        void Deactivate(SStub *Info)
         {
-            static void(*s_DeactivateStub)(SStub *) = (void(*)(SStub *))(GetProcAddress(
-                __SDK_Module, 
-                "SDK_Stub_Deactivate"
-            ));
+            IMPORT_SDK_FUNCTION(void, Stub, Deactivate, SStub *);
 
-            return s_DeactivateStub(Info);
+            return CALL_SDK_FUNCTION(Stub, Deactivate, Info);
         }
     }
 }

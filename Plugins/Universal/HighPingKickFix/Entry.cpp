@@ -3,7 +3,7 @@
 #include "SDK.hpp"
 
 static
-SDK::Util::SStub *s_KickStub = NULL;
+SDK::Stub::SStub *s_KickStub = NULL;
 
 PLUGIN_ENTRY()
 {
@@ -38,8 +38,8 @@ PLUGIN_ENTRY()
 
     if(KickAddress != NULL) 
     {
-        s_KickStub = SDK::Util::SetupStub(KickAddress);
-        SDK::Util::ActivateStub(s_KickStub);
+        s_KickStub = SDK::Stub::Setup(KickAddress);
+        SDK::Stub::Activate(s_KickStub);
 
         SDK::Util::Log("High Ping Kick disabled (@%p)...\n", s_KickStub->Address); 
     }
