@@ -20,11 +20,11 @@ namespace SDK
             char *Address;
         };
 
-        SDetour *Setup(void *Address)
+        SDetour *Setup(void *Address, void *Detour)
         {
-            IMPORT_SDK_FUNCTION(SDetour *, Detour, Setup, void *);
+            IMPORT_SDK_FUNCTION(SDetour *, Detour, Setup, void *, void *);
 
-            return CALL_SDK_FUNCTION(Detour, Setup, Address);
+            return CALL_SDK_FUNCTION(Detour, Setup, Address, Detour);
         }
 
         void Activate(SDetour *Info)

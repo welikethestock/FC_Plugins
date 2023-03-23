@@ -14,13 +14,13 @@ struct SDetour
     char    OldBytes[_BYTES_NEEDED];
 };
 
-SDK_FUNCTION(SDetour *, Detour, Setup, void *Address)
+SDK_FUNCTION(SDetour *, Detour, Setup, void *Address, void *Hook)
 {
     SDetour *Info = new SDetour;
     Info->Address = (char *)(Address);
 
     Info->NewBytes[0x00] = 0x48; Info->NewBytes[0x01] = 0xB8;
-    *(void **)(&Info->NewBytes[2]) = Address;
+    *(void **)(&Info->NewBytes[2]) = Hook;
     Info->NewBytes[0x0A] = 0xFF; Info->NewBytes[0x0B] = 0xE0;
 
     memcpy(&Info->OldBytes[0], Address, sizeof(SDetour::OldBytes));

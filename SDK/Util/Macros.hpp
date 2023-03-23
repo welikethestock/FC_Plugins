@@ -36,7 +36,7 @@
     HMODULE __SDK_Module; \
     HMODULE __SDK_Us; \
      \
-    static bool _Initialize(HMODULE, HMODULE); \
+    static bool _PLUGIN_INIT(HMODULE, HMODULE); \
      \
     EXPORT \
     bool Initialize(HMODULE _Module, HMODULE _Us) \
@@ -44,9 +44,9 @@
         __SDK_Module    = _Module; \
         __SDK_Us        = _Us; \
          \
-        return _Initialize(_Module, _Us); \
+        return _PLUGIN_INIT(_Module, _Us); \
     } \
      \
-    bool _Initialize(HMODULE _Module, HMODULE _Us)
+    bool _PLUGIN_INIT(HMODULE _Module, HMODULE _Us)
 
 #endif

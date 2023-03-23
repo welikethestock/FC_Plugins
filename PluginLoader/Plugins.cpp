@@ -46,10 +46,8 @@ bool Plugins::Load(HMODULE Module)
 
             continue;
         }
-        else
-        {
-            SDK::Log::Message("Successfully loaded %s...\n", FindData.cFileName);
-        }
+        
+        SDK::Log::Message("Successfully loaded %s...\n", FindData.cFileName);
     } while(FindNextFileA(FindHandle, &FindData));
 
     FindClose(FindHandle);
