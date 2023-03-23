@@ -1,9 +1,8 @@
-#include <windows.h> // including this to shut intellisense up
 #include <stdio.h>
 #include <time.h>
 #include "Util/Macros.hpp"
 
-SDK_FUNCTION(Log, Message, void, const char *Message)
+SDK_FUNCTION(void, Log, Message, const char *Message)
 {
     char    Buffer[26 + 1];
     time_t  Time = time(NULL);

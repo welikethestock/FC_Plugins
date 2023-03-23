@@ -9,12 +9,12 @@
 
 struct SDetour
 {
-    char    *Address;                   // must always be 0x0
+    char    *Address;                   // must always be at 0x0
     char    NewBytes[_BYTES_NEEDED];
     char    OldBytes[_BYTES_NEEDED];
 };
 
-SDK_FUNCTION(Detour, Setup, SDetour *, void *Address)
+SDK_FUNCTION(SDetour *, Detour, Setup, void *Address)
 {
     SDetour *Info = new SDetour;
     Info->Address = (char *)(Address);
@@ -28,7 +28,7 @@ SDK_FUNCTION(Detour, Setup, SDetour *, void *Address)
     return Info;
 }
 
-SDK_FUNCTION(Detour, Activate, void, SDetour *Info)
+SDK_FUNCTION(void, Detour, Activate, SDetour *Info)
 {
     DWORD OldProtect;
     VirtualProtect(Info->Address, sizeof(SDetour::NewBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
@@ -36,7 +36,7 @@ SDK_FUNCTION(Detour, Activate, void, SDetour *Info)
     VirtualProtect(Info->Address, sizeof(SDetour::NewBytes), OldProtect, &OldProtect);
 }
 
-SDK_FUNCTION(Detour, Deactivate, void, SDetour *Info)
+SDK_FUNCTION(void, Detour, Deactivate, SDetour *Info)
 {
     DWORD OldProtect;
     VirtualProtect(Info->Address, sizeof(SDetour::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);

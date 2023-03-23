@@ -8,7 +8,7 @@ struct SStub
     char    OldBytes[3];
 };
 
-SDK_FUNCTION(Stub, Setup, SDK::Stub::SStub *, void *Address)
+SDK_FUNCTION(SDK::Stub::SStub *, Stub, Setup, void *Address)
 {
     ::SStub* Info = new ::SStub;
     Info->Address = (char *)(Address);
@@ -17,7 +17,7 @@ SDK_FUNCTION(Stub, Setup, SDK::Stub::SStub *, void *Address)
     return (SDK::Stub::SStub *)(Info);
 }
 
-SDK_FUNCTION(Stub, Activate, void, SStub *Info)
+SDK_FUNCTION(void, Stub, Activate, SStub *Info)
 {
     DWORD OldProtect;
     VirtualProtect(Info->Address, sizeof(SStub::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
@@ -26,7 +26,7 @@ SDK_FUNCTION(Stub, Activate, void, SStub *Info)
     VirtualProtect(Info->Address, sizeof(SStub::OldBytes), OldProtect, &OldProtect);
 }
 
-SDK_FUNCTION(Stub, Deactivate, void, SStub *Info)
+SDK_FUNCTION(void, Stub, Deactivate, SStub *Info)
 {
     DWORD OldProtect;
     VirtualProtect(Info->Address, sizeof(SStub::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);

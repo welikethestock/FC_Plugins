@@ -14,6 +14,11 @@ bool Plugins::Load(HMODULE Module)
     if(FindHandle == NULL || FindData.cFileName[0] == '\0')
     {
         SDK::Log::Message("FindFirstFile failed/No plugins found...\n");
+        
+        if(FindHandle != NULL)
+        {
+            FindClose(FindHandle);
+        }
 
         return false;
     }

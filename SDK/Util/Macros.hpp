@@ -19,7 +19,7 @@
 #define SDK_FUNCTION_NAME(Category, Name) \
     SDK_##Category##_##Name
 
-#define SDK_FUNCTION(Category, Name, ReturnType, ...) \
+#define SDK_FUNCTION(ReturnType, Category, Name, ...) \
     EXPORT \
     ReturnType SDK_FUNCTION_NAME(Category, Name)(__VA_ARGS__) 
 

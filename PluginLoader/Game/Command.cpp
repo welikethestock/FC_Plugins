@@ -20,17 +20,17 @@ struct Command
     SDK::Command::Value Value;          // 0x28
 };
 
-SDK_FUNCTION(Command, GetCommand, Command *, const char *Name)
+SDK_FUNCTION(Command *, Command, GetCommand, const char *Name)
 {
     return NULL;
 }
 
-SDK_FUNCTION(Command, GetDescription, const char *, Command *Cmd)
+SDK_FUNCTION(const char *, Command, GetDescription, Command *Cmd)
 {
     return Cmd->Descriptor->Description;
 }
 
-SDK_FUNCTION(Command, GetValue, SDK::Command::Value &, Command *Cmd)
+SDK_FUNCTION(SDK::Command::Value &, Command, GetValue, Command *Cmd)
 {
     return Cmd->Value;
 }
