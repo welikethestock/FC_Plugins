@@ -12,7 +12,7 @@ namespace SDK
         struct SDetour
         {
             template< typename _T >
-            _T GetOriginal()
+            _T Get()
             {
                 return (_T)(Address);
             }

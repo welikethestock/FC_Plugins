@@ -26,4 +26,12 @@ clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declaration
         -D_USRDLL -D_WINDLL ^
         ../Plugins/Universal/HighPingKickFix/Entry.cpp
 
+echo "Compiling Playground5.dll..."
+
+clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined ^
+        -I./../SDK ^
+        -o ./Playground5.dll ^
+        -D_USRDLL -D_WINDLL ^
+        ../Plugins/5/Playground/Entry.cpp
+
 echo "Done compiling..."

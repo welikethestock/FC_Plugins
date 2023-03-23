@@ -1,6 +1,5 @@
 #include "Plugins.hpp"
 #include <windows.h>
-#include <stdio.h>
 #define _LOG_HACK
 #include "Util/Log.hpp"
 
@@ -38,7 +37,7 @@ bool Plugins::Load(HMODULE Module)
             continue;
         }
         
-        bool(*Initialize)(HMODULE, HMODULE) = (decltype(Initialize))(GetProcAddress(Plugin, "Initialize"));
+        bool(*Initialize)(HMODULE, HMODULE) = (_TYPE(Initialize))(GetProcAddress(Plugin, "Initialize"));
         if(Initialize == NULL || !Initialize(Module, Plugin))
         {
             SDK::Log::Message("Failed initializing %s...\n", FindData.cFileName);

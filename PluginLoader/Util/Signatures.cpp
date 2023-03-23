@@ -12,6 +12,7 @@ size_t GetModuleSize(HMODULE Module)
     return Info.SizeOfImage;
 }
 
+EXPORT_C
 SDK_FUNCTION(void *, Signature, Find, HMODULE Module, const char *Signature, const char *Mask)
 {
     if(Module == NULL)

@@ -2,18 +2,22 @@
 #include <string.h>
 #include "Util/Detours.hpp"
 
-// mov  rax, ? ? ? ? ? ? ? ?    [48 B8 ? ? ? ? ? ? ? ?] @00:<+10>
-// jmp  rax                     [FF E0]                 @0A:<+02>
+//  mnemonic    : mov rax, ? ? ? ? ? ? ? ?
+//  hex         : 48 b8 ? ? ? ? ? ? ? ?
 
-#define _BYTES_NEEDED           12
+//  mnemonic    : jmp rax 
+//  hex         : ff e0
+
+#define _BYTES_NEEDED 12
 
 struct SDetour
 {
-    char    *Address;                   // must always be at 0x0
+    char    *Address;                   // must always be at 0x00
     char    NewBytes[_BYTES_NEEDED];
     char    OldBytes[_BYTES_NEEDED];
 };
 
+EXPORT_C
 SDK_FUNCTION(SDetour *, Detour, Setup, void *Address, void *Hook)
 {
     SDetour *Info = new SDetour;
@@ -28,6 +32,7 @@ SDK_FUNCTION(SDetour *, Detour, Setup, void *Address, void *Hook)
     return Info;
 }
 
+EXPORT_C
 SDK_FUNCTION(void, Detour, Activate, SDetour *Info)
 {
     DWORD OldProtect;
@@ -36,6 +41,7 @@ SDK_FUNCTION(void, Detour, Activate, SDetour *Info)
     VirtualProtect(Info->Address, sizeof(SDetour::NewBytes), OldProtect, &OldProtect);
 }
 
+EXPORT_C
 SDK_FUNCTION(void, Detour, Deactivate, SDetour *Info)
 {
     DWORD OldProtect;

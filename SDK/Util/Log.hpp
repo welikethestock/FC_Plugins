@@ -7,8 +7,8 @@
 #include "Macros.hpp"
 
 #if defined _LOG_HACK
-EXPORT
-void SDK_Log_Message(const char *Message);
+extern "C"
+SDK_FUNCTION(void, Log, Message, const char *);
 #endif
 
 namespace SDK
@@ -29,7 +29,7 @@ namespace SDK
 
             return CALL_SDK_FUNCTION(Log, Message, Buffer);
         #else
-            return SDK_Log_Message(Buffer);
+            return SDK_FUNCTION_NAME(Log, Message)(Buffer);
         #endif
         }
     }

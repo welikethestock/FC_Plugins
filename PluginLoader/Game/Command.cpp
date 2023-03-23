@@ -20,16 +20,19 @@ struct Command
     SDK::Command::Value Value;          // 0x28
 };
 
+EXPORT_C
 SDK_FUNCTION(Command *, Command, GetCommand, const char *Name)
 {
     return NULL;
 }
 
+EXPORT_C
 SDK_FUNCTION(const char *, Command, GetDescription, Command *Cmd)
 {
     return Cmd->Descriptor->Description;
 }
 
+EXPORT_C
 SDK_FUNCTION(SDK::Command::Value &, Command, GetValue, Command *Cmd)
 {
     return Cmd->Value;

@@ -3,6 +3,7 @@
 
 #include "Util/Module.hpp"
 #include "Util/Macros.hpp"
+#include "Util/Intrinsics.hpp"
 #include "Util/Log.hpp"
 #include "Util/Signatures.hpp"
 #include "Util/Stubs.hpp"
