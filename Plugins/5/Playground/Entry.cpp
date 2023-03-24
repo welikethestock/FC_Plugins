@@ -39,5 +39,7 @@ PLUGIN_ENTRY()
     s_SetupCmd2 = SDK::Detour::Setup((char *)(GetModuleHandleA("FC_m64.dll")) + 0x5ED9490, SetupCmd2);
     SDK::Detour::Activate(s_SetupCmd2);
 
+    SDK::Log::Message("%p\n", _StackFrame());
+
     return true;
 }

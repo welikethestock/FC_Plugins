@@ -14,4 +14,6 @@
     #include    <intrin.h>
 #endif
 
+#define _StackFrame() _AddressOfReturnAddress()
+
 #endif
