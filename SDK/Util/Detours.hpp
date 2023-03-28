@@ -11,12 +11,6 @@ namespace SDK
     {
         struct SDetour
         {
-            template< typename _T >
-            _T Get()
-            {
-                return (_T)(Address);
-            }
-
             char *Address;
         };
 
@@ -41,10 +35,12 @@ namespace SDK
             return CALL_SDK_FUNCTION(Detour, Deactivate, Info);
         }
 
+        template< typename _F >
         class CtxSensitiveUnhook;
     }
 }
 
+template< typename _F >
 class SDK::Detour::CtxSensitiveUnhook
 {
 public:
@@ -60,9 +56,24 @@ public:
     ~CtxSensitiveUnhook()
     { 
         SDK::Detour::Activate(m_Info);
-    };
+    }
+
+    FORCEINLINE
+    _F Get()
+    {
+        return (_F)(m_Info->Address);
+    }
 private:
     SDetour *m_Info;
 };
+
+#define _ExCtxUnhookEx(Function, Info, CtxName) \
+    SDK::Detour::CtxSensitiveUnhook<_TYPE(Function)*> CtxName(Info)
+
+#define _CtxUnhookEx(Function, Info) \
+    _ExCtxUnhookEx(Function, Info, _Ctx)
+
+#define _CtxUnhook(Function) \
+    _CtxUnhookEx(Function, _CONCAT(s_, Function))
 
 #endif
