@@ -9,11 +9,17 @@ namespace SDK
 {
     namespace Signature
     {
-        void *Find(HMODULE Module, const char *Signature, const char *Mask)
+        void *Find(HMODULE Module, const char *Signature, const char *Mask, int Offset = 0x0)
         {
             IMPORT_SDK_FUNCTION(void *, Signature, Find, HMODULE, const char *, const char *);
 
-            return CALL_SDK_FUNCTION(Signature, Find, Module, Signature, Mask);
+            char *Address = (char *)(CALL_SDK_FUNCTION(Signature, Find, Module, Signature, Mask));
+            if(Address == NULL)
+            {
+                return NULL;
+            }
+
+            return (Address + Offset);
         }
     }
 }

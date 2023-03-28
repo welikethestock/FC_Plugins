@@ -1,6 +1,11 @@
 #ifndef __SDK_UTIL_MACROS__
 #define __SDK_UTIL_MACROS__
 
+// error if not clang
+#ifndef __clang__
+    #error "Building is only supported with clang."
+#endif
+
 // linking to MessageBoxA or other user32 functions will fail otherwise (atleast it does on my linux setup)
 #pragma comment(lib, "user32.lib")
 
@@ -10,19 +15,38 @@
 
 #define _LOADER_DLL     "PluginLoader.dll"
 
+// basic util macros
+
 #define _STRING_E(x)    #x
 #define _STRING(x)      _STRING_E(x)
 
 #define _CONCAT_E(x, y) x ## y
 #define _CONCAT(x, y)   _CONCAT_E(x, y)
 
-#define _TYPE(x)        decltype(x)
+// declspec & co
+
+#define _TYPE(x) \
+    decltype(x)
+
+#define _DECLSPEC(x) \
+    __declspec(x)
+
+#define _ATTRIBUTE(x) \
+    __attribute__((x))
 
 #define EXPORT \
-    __declspec(dllexport)
+    _DECLSPEC(dllexport)
 
 #define EXPORT_C \
-    extern "C" EXPORT
+    EXTERN_C EXPORT
+
+#define NOINLINE \
+    _DECLSPEC(noinline)
+
+#define NAKED \
+    _ATTRIBUTE(naked) NOINLINE
+
+// sdk stuff
 
 #define SDK_FUNCTION_NAME(Category, Name) \
     SDK_##Category##_##Name
@@ -38,6 +62,8 @@
 
 #define CALL_SDK_FUNCTION(Category, Name, ...) \
     _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))(__VA_ARGS__)
+
+// plugin macro
 
 #define PLUGIN_ENTRY() \
     HMODULE __SDK_Module; \
@@ -56,7 +82,8 @@
      \
     bool _PLUGIN_INIT(HMODULE _Module, HMODULE _Us)
 
-// damn i love decltype
+// memory helpers
+
 #define _RELATIVE_TO_ABSOLUTE(Address) \
     (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(int *)((char *)(Address)) ) + 0x4 ))
 

@@ -26,7 +26,7 @@ SDK_FUNCTION(void *, Signature, Find, HMODULE Module, const char *Signature, con
 
     do
     {
-        for(int Index = 0; Index < SignatureLength; ++Index)
+        for(size_t Index = 0; Index < SignatureLength; ++Index)
         {
             if(Mask[Index] == '?')
             {

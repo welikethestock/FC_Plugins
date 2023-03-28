@@ -26,20 +26,13 @@ Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
     Command2 *Return = s_SetupCmd2->Get<_TYPE(SetupCmd2)*>()(Cmd, Name, Unknown1);
     SDK::Detour::Activate(s_SetupCmd2);
 
-    if(Cmd != NULL && Cmd->Cmd1 != NULL)
-    {
-        SDK::Log::Message("%s\n", Cmd->Name);
-    }
-
     return Return;
 }
 
 PLUGIN_ENTRY()
 {
-    s_SetupCmd2 = SDK::Detour::Setup((char *)(GetModuleHandleA("FC_m64.dll")) + 0x5ED9490, SetupCmd2);
+    s_SetupCmd2 = SDK::Detour::Setup((char *)(GetModuleHandleA("FC_m64.dll")) + 0x5ED9490, (void *)(&SetupCmd2));
     SDK::Detour::Activate(s_SetupCmd2);
-
-    SDK::Log::Message("%p\n", _StackFrame());
 
     return true;
 }
