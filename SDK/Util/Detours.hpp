@@ -40,7 +40,29 @@ namespace SDK
 
             return CALL_SDK_FUNCTION(Detour, Deactivate, Info);
         }
+
+        class CtxSensitiveUnhook;
     }
 }
+
+class SDK::Detour::CtxSensitiveUnhook
+{
+public:
+    FORCEINLINE
+    CtxSensitiveUnhook(SDetour *Info)
+    { 
+        m_Info = Info; 
+                
+        SDK::Detour::Deactivate(m_Info);
+    }
+
+    FORCEINLINE
+    ~CtxSensitiveUnhook()
+    { 
+        SDK::Detour::Activate(m_Info);
+    };
+private:
+    SDetour *m_Info;
+};
 
 #endif

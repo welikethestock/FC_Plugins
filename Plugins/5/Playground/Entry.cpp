@@ -22,11 +22,9 @@ SDK::Detour::SDetour *s_SetupCmd2 = NULL;
 
 Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
 {
-    SDK::Detour::Deactivate(s_SetupCmd2);
-    Command2 *Return = s_SetupCmd2->Get<_TYPE(SetupCmd2)*>()(Cmd, Name, Unknown1);
-    SDK::Detour::Activate(s_SetupCmd2);
+    SDK::Detour::CtxSensitiveUnhook _Ctx(s_SetupCmd2);
 
-    return Return;
+    return s_SetupCmd2->Get<_TYPE(SetupCmd2)*>()(Cmd, Name, Unknown1);
 }
 
 PLUGIN_ENTRY()

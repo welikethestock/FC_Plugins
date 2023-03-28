@@ -14,12 +14,7 @@ namespace SDK
             IMPORT_SDK_FUNCTION(void *, Signature, Find, HMODULE, const char *, const char *);
 
             char *Address = (char *)(CALL_SDK_FUNCTION(Signature, Find, Module, Signature, Mask));
-            if(Address == NULL)
-            {
-                return NULL;
-            }
-
-            return (Address + Offset);
+            return (Address != NULL) ? (Address + Offset) : NULL;
         }
     }
 }
