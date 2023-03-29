@@ -15,6 +15,7 @@ namespace SDK
 {
     namespace Log
     {
+        inline
         void Message(const char *Format, ...)
         {
             char    Buffer[512];

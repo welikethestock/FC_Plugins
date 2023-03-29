@@ -4,35 +4,44 @@
 #include <windows.h>
 #include "Module.hpp"
 #include "Macros.hpp"
+#include "Bytepatch.hpp"
+
+#define DETOUR_FLAGS_NONE   (0)
 
 namespace SDK
 {
     namespace Detour
     {
         struct SDetour
-        {
-            char *Address;
+        {    
+            template< typename _F > FORCEINLINE
+            _F Get()
+            {
+                return (_F)(Bytepatch->Address);
+            }
+
+            SDK::Bytepatch::SBytepatch  *Bytepatch;
+            unsigned int                Flags;
         };
 
-        SDetour *Setup(void *Address, void *Detour)
+        inline
+        SDetour *Setup(void *Address, void *Detour, unsigned int Flags = DETOUR_FLAGS_NONE)
         {
-            IMPORT_SDK_FUNCTION(SDetour *, Detour, Setup, void *, void *);
+            IMPORT_SDK_FUNCTION(SDetour *, Detour, Setup, void *, void *, unsigned int);
 
-            return CALL_SDK_FUNCTION(Detour, Setup, Address, Detour);
+            return CALL_SDK_FUNCTION(Detour, Setup, Address, Detour, Flags);
         }
 
-        void Activate(SDetour *Info)
+        inline
+        void Enable(SDetour *Info)
         {
-            IMPORT_SDK_FUNCTION(void, Detour, Activate, SDetour *);
-
-            return CALL_SDK_FUNCTION(Detour, Activate, Info);
+            return SDK::Bytepatch::Enable(Info->Bytepatch);
         }
 
-        void Deactivate(SDetour *Info)
+        inline
+        void Disable(SDetour *Info)
         {
-            IMPORT_SDK_FUNCTION(void, Detour, Deactivate, SDetour *);
-
-            return CALL_SDK_FUNCTION(Detour, Deactivate, Info);
+            return SDK::Bytepatch::Disable(Info->Bytepatch);
         }
 
         template< typename _F >
@@ -45,30 +54,30 @@ class SDK::Detour::CtxSensitiveUnhook
 {
 public:
     FORCEINLINE
-    CtxSensitiveUnhook(SDetour *Info)
+    CtxSensitiveUnhook(SDK::Detour::SDetour *Info)
     { 
         m_Info = Info; 
                 
-        SDK::Detour::Deactivate(m_Info);
+        SDK::Detour::Disable(m_Info);
     }
 
     FORCEINLINE
     ~CtxSensitiveUnhook()
     { 
-        SDK::Detour::Activate(m_Info);
+        SDK::Detour::Enable(m_Info);
     }
 
     FORCEINLINE
     _F Get()
     {
-        return (_F)(m_Info->Address);
+        return m_Info->Get<_F>();
     }
 private:
-    SDetour *m_Info;
+    SDK::Detour::SDetour *m_Info;
 };
 
 #define _ExCtxUnhookEx(Function, Info, CtxName) \
-    SDK::Detour::CtxSensitiveUnhook<_TYPE(Function)*> CtxName(Info)
+    SDK::Detour::CtxSensitiveUnhook<_TYPE(Function) *> CtxName(Info)
 
 #define _CtxUnhookEx(Function, Info) \
     _ExCtxUnhookEx(Function, Info, _Ctx)

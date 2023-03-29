@@ -24,13 +24,30 @@ Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
 {
     _CtxUnhook(SetupCmd2);
 
+    SDK::Log::Message("stuff %s\n", Name);
+
     return _Ctx.Get()(Cmd, Name, Unknown1);
+}
+
+NOINLINE
+void Test()
+{
+    SDK::Log::Message("Message\n");
 }
 
 PLUGIN_ENTRY()
 {
     s_SetupCmd2 = SDK::Detour::Setup((char *)(GetModuleHandleA("FC_m64.dll")) + 0x5ED9490, (void *)(&SetupCmd2));
-    SDK::Detour::Activate(s_SetupCmd2);
+    SDK::Detour::Enable(s_SetupCmd2);
+
+    SDK::Log::Message("before\n");
+    SDK::Stub::SStub *Stub = SDK::Stub::Setup((void *)(&Test), STUB_FLAGS_NONE);
+    Test();
+    SDK::Stub::Enable(Stub);
+    Test();
+    SDK::Stub::Disable(Stub);
+    Test();
+    SDK::Log::Message("after\n");
 
     return true;
 }

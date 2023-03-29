@@ -8,37 +8,35 @@
 // mnemonic : ret
 // hex      : c3
 
-struct SStub
-{
-    char    *Address;       // always has to be at 0x00
-    char    OldBytes[3];
-};
+EXTERN_C
+SDK_FUNCTION(SDK::Bytepatch::SBytepatch *, Bytepatch, Setup, void *Address, char *OpCodes, size_t Length);
 
 EXPORT_C
-SDK_FUNCTION(SDK::Stub::SStub *, Stub, Setup, void *Address)
+SDK_FUNCTION(SDK::Stub::SStub *, Stub, Setup, void *Address, unsigned int Flags)
 {
-    ::SStub* Info = new ::SStub;
-    Info->Address = (char *)(Address);
-    memcpy(&Info->OldBytes[0], Address, sizeof(SStub::OldBytes));
+    size_t Length = 1;
+    if(Flags & STUB_FLAGS_XOR_RAX)
+    {
+        Length += 2;
+    }
 
-    return (SDK::Stub::SStub *)(Info);
-}
+    char *OpCodes = new char[Length];
+    {
+        size_t Index = 0;
+        if(Flags & STUB_FLAGS_XOR_RAX)
+        {
+            OpCodes[Index] = 0x31; OpCodes[Index + 1] = 0xC0; // xor eax, eax
 
-EXPORT_C
-SDK_FUNCTION(void, Stub, Activate, SStub *Info)
-{
-    DWORD OldProtect;
-    VirtualProtect(Info->Address, sizeof(SStub::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
-    Info->Address[0] = 0x31; Info->Address[1] = 0xC0;
-    Info->Address[2] = 0xC3;
-    VirtualProtect(Info->Address, sizeof(SStub::OldBytes), OldProtect, &OldProtect);
-}
+            Index += 2;
+        }
+    }
+    OpCodes[Length - 1] = 0xC3; // nop
 
-EXPORT_C
-SDK_FUNCTION(void, Stub, Deactivate, SStub *Info)
-{
-    DWORD OldProtect;
-    VirtualProtect(Info->Address, sizeof(SStub::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
-    memcpy(Info->Address, &Info->OldBytes[0], sizeof(SStub::OldBytes));
-    VirtualProtect(Info->Address, sizeof(SStub::OldBytes), OldProtect, &OldProtect);
+    SDK::Stub::SStub *Info = new SDK::Stub::SStub;
+    Info->Bytepatch = CALL_SDK_FUNCTION_DIRECT(Bytepatch, Setup, Address, OpCodes, Length);
+    Info->Flags = Flags;
+
+    delete[] OpCodes;
+
+    return Info;
 }

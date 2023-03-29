@@ -63,6 +63,9 @@
 #define CALL_SDK_FUNCTION(Category, Name, ...) \
     _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))(__VA_ARGS__)
 
+#define CALL_SDK_FUNCTION_DIRECT(Category, Name, ...) \
+    SDK_FUNCTION_NAME(Category, Name)(__VA_ARGS__)
+
 // plugin macro
 
 #define PLUGIN_ENTRY() \

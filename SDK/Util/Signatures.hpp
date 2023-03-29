@@ -9,6 +9,7 @@ namespace SDK
 {
     namespace Signature
     {
+        inline
         void *Find(HMODULE Module, const char *Signature, const char *Mask, int Offset = 0x0)
         {
             IMPORT_SDK_FUNCTION(void *, Signature, Find, HMODULE, const char *, const char *);

@@ -8,44 +8,24 @@
 //  mnemonic    : jmp rax 
 //  hex         : ff e0
 
-#define _BYTES_NEEDED 12
-
-struct SDetour
-{
-    char    *Address;                   // must always be at 0x00
-    char    NewBytes[_BYTES_NEEDED];
-    char    OldBytes[_BYTES_NEEDED];
-};
+EXTERN_C
+SDK_FUNCTION(SDK::Bytepatch::SBytepatch *, Bytepatch, Setup, void *Address, char *OpCodes, size_t Length);
 
 EXPORT_C
-SDK_FUNCTION(SDetour *, Detour, Setup, void *Address, void *Hook)
+SDK_FUNCTION(SDK::Detour::SDetour *, Detour, Setup, void *Address, void *Hook, unsigned int Flags)
 {
-    SDetour *Info = new SDetour;
-    Info->Address = (char *)(Address);
+    size_t Length = 12;
+    char *OpCodes = new char[Length];
 
-    Info->NewBytes[0x00] = 0x48; Info->NewBytes[0x01] = 0xB8;
-    *(void **)(&Info->NewBytes[2]) = Hook;
-    Info->NewBytes[0x0A] = 0xFF; Info->NewBytes[0x0B] = 0xE0;
+    OpCodes[0] = 0x48; OpCodes[1] = 0xB8;                   // mov rax, ? ? ? ? ? ? ? ?
+    *(void **)&OpCodes[2] = Hook;
+    OpCodes[Length - 2] = 0xFF; OpCodes[Length - 1] = 0xE0; // jmp rax
 
-    memcpy(&Info->OldBytes[0], Address, sizeof(SDetour::OldBytes));
+    SDK::Detour::SDetour *Info = new SDK::Detour::SDetour;
+    Info->Bytepatch = CALL_SDK_FUNCTION_DIRECT(Bytepatch, Setup, Address, OpCodes, Length);
+    Info->Flags = Flags;
+
+    delete[] OpCodes;
 
     return Info;
-}
-
-EXPORT_C
-SDK_FUNCTION(void, Detour, Activate, SDetour *Info)
-{
-    DWORD OldProtect;
-    VirtualProtect(Info->Address, sizeof(SDetour::NewBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
-    memcpy(Info->Address, &Info->NewBytes[0], sizeof(SDetour::NewBytes));
-    VirtualProtect(Info->Address, sizeof(SDetour::NewBytes), OldProtect, &OldProtect);
-}
-
-EXPORT_C
-SDK_FUNCTION(void, Detour, Deactivate, SDetour *Info)
-{
-    DWORD OldProtect;
-    VirtualProtect(Info->Address, sizeof(SDetour::OldBytes), PAGE_EXECUTE_READWRITE, &OldProtect);
-    memcpy(Info->Address, &Info->OldBytes[0], sizeof(SDetour::OldBytes));
-    VirtualProtect(Info->Address, sizeof(SDetour::OldBytes), OldProtect, &OldProtect);
 }

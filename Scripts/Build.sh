@@ -15,7 +15,8 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
         -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
-        ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp \
+        ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp \
+        ../PluginLoader/Util/Bytepatch.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp \
         ../PluginLoader/Game/Command.cpp
 
 echo "Compiling HighPingKickFix.dll..."
