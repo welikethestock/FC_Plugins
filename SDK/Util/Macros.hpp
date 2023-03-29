@@ -87,7 +87,13 @@
 
 // memory helpers
 
-#define _RELATIVE_TO_ABSOLUTE(Address) \
+#define _RELATIVE_TO_ABSOLUTE_32(Address) \
     (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(int *)((char *)(Address)) ) + 0x4 ))
+
+#define _RELATIVE_TO_ABSOLUTE_16(Address) \
+    (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(short *)((char *)(Address)) ) + 0x2 ))
+
+#define _RELATIVE_TO_ABSOLUTE_8(Address) \
+    (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(char *)((char *)(Address)) ) + 0x1 ))
 
 #endif

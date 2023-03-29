@@ -10,12 +10,12 @@ clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declaration
 
 echo "Compiling PluginLoader.dll..."
 
-clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage ^
+clang   -Wl,/subsystem:windows,/machine:X64,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format ^
         -I./../SDK ^
         -o ./PluginLoader.dll ^
         -D_USRDLL -D_WINDLL ^
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp ^
-        ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp ^
+        ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp ../PluginLoader/Util/Disasm.cpp ^
         ../PluginLoader/Util/Bytepatch.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp ^
         ../PluginLoader/Game/Command.cpp
 

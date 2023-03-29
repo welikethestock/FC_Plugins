@@ -58,10 +58,14 @@ PLUGIN_ENTRY()
 
     if(KickAddress != NULL) 
     {
-        s_KickStub = SDK::Stub::Setup(KickAddress);
+        s_KickStub = SDK::Stub::Setup(KickAddress, STUB_FLAGS_XOR_RAX);
         SDK::Stub::Enable(s_KickStub);
 
         SDK::Log::Message("High Ping Kick disabled (@%p)...\n", s_KickStub->Bytepatch->Address); 
+    }
+    else
+    {
+        SDK::Log::Message("Couldn't find High Ping Kick Address...\n");
     }
     
     return (KickAddress != NULL);

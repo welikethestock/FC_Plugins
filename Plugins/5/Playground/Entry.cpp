@@ -29,10 +29,18 @@ Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
     return _Ctx.Get()(Cmd, Name, Unknown1);
 }
 
-NOINLINE
+EXPORT_C NAKED
 void Test()
 {
-    SDK::Log::Message("Message\n");
+    _asm
+    {
+        jmp label
+    prevlabel:
+        mov rax, 01122334455667788h
+        ret
+    label:
+        jmp prevlabel
+    }
 }
 
 PLUGIN_ENTRY()
@@ -40,14 +48,22 @@ PLUGIN_ENTRY()
     s_SetupCmd2 = SDK::Detour::Setup((char *)(GetModuleHandleA("FC_m64.dll")) + 0x5ED9490, (void *)(&SetupCmd2));
     SDK::Detour::Enable(s_SetupCmd2);
 
-    SDK::Log::Message("before\n");
-    SDK::Stub::SStub *Stub = SDK::Stub::Setup((void *)(&Test), STUB_FLAGS_NONE);
-    Test();
-    SDK::Stub::Enable(Stub);
-    Test();
-    SDK::Stub::Disable(Stub);
-    Test();
-    SDK::Log::Message("after\n");
+    char *Address = (char *)(&Test);
+
+    SDK::Log::Message("%p %p %p",
+        Address,
+        _RELATIVE_TO_ABSOLUTE_8(Address + 0x1),
+        _RELATIVE_TO_ABSOLUTE_8((Address + 0xD) + 0x1)
+    );
+
+    char Buffer[64];
+    for(int i = 0; (i < 10 && Address); ++i)
+    {
+        if((Address = (char *)SDK::Code::Disassemble(Address, Buffer)) != NULL)
+        {
+            SDK::Log::Message("%s\n", Buffer);
+        }
+    }
 
     return true;
 }
