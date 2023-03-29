@@ -1471,11 +1471,22 @@ end2:
 #endif
 
 #include "Util/Disasm.hpp"
+#define NMD_ASSEMBLY_IMPLEMENTATION
+extern "C"
+{
+#include "nmd/assembly/nmd_assembly.h"
+}
 
 EXPORT_C
 SDK_FUNCTION(void *, Code, Disassemble, void *Address, char *Buffer)
 {
-    //return (void *)(disasm((uint64_t)(Address), Buffer));
+    nmd_x86_instruction Instruction;
+    if(!nmd_x86_decode(Address, 0xFF, &Instruction, NMD_X86_MODE_64, NMD_X86_DECODER_FLAGS_ALL))
+    {
+        return NULL;
+    }
 
-    return NULL;
+    nmd_x86_format(&Instruction, Buffer, NMD_X86_INVALID_RUNTIME_ADDRESS, NMD_X86_FORMAT_FLAGS_DEFAULT);
+
+    return (void *)((char *)(Address) + Instruction.length);
 }
