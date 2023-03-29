@@ -4,7 +4,7 @@ echo "Compiling dbdata.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
-        -fuse-ld=lld -o dbdata.dll \
+        -flto -fuse-ld=lld -o dbdata.dll \
         -D_USRDLL -D_WINDLL \
         ../Proxy/DBData.cpp
 
@@ -12,7 +12,7 @@ echo "Compiling PluginLoader.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format \
         -I./../SDK -I./.. \
-        -fuse-ld=lld -o PluginLoader.dll \
+        -flto -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
         ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp \
@@ -25,7 +25,7 @@ echo "Compiling HighPingKickFix.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
-        -fuse-ld=lld -o HighPingKickFix.dll \
+        -flto -fuse-ld=lld -o HighPingKickFix.dll \
         -D_USRDLL -D_WINDLL \
         ../Plugins/Universal/HighPingKickFix/Entry.cpp
 
@@ -33,7 +33,7 @@ echo "Compiling Playground5.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
-        -fuse-ld=lld -o Playground5.dll \
+        -flto -fuse-ld=lld -o Playground5.dll \
         -D_USRDLL -D_WINDLL \
         ../Plugins/5/Playground/Entry.cpp
 
