@@ -1477,8 +1477,20 @@ extern "C"
 #include "nmd/assembly/nmd_assembly.h"
 }
 
+#define _DISASM_MASK \
+    NMD_X86_FORMAT_FLAGS_HEX | \
+    NMD_X86_FORMAT_FLAGS_POINTER_SIZE | \
+    NMD_X86_FORMAT_FLAGS_ONLY_SEGMENT_OVERRIDE | \
+    NMD_X86_FORMAT_FLAGS_COMMA_SPACES | \
+    NMD_X86_FORMAT_FLAGS_OPERATOR_SPACES | \
+    NMD_X86_FORMAT_FLAGS_H_SUFFIX | \
+    /*NMD_X86_FORMAT_FLAGS_ENFORCE_HEX_ID |*/ \
+    NMD_X86_FORMAT_FLAGS_SIGNED_NUMBER_MEMORY_VIEW | \
+    NMD_X86_FORMAT_FLAGS_SIGNED_NUMBER_HINT_DEC/* | \
+    NMD_X86_FORMAT_FLAGS_BYTES*/
+
 EXPORT_C
-SDK_FUNCTION(void *, Code, Disassemble, void *Address, char *Buffer)
+SDK_FUNCTION(void *, Code, Disassemble, void *Address, char *Buffer, bool Bytes)
 {
     nmd_x86_instruction Instruction;
     if(!nmd_x86_decode(Address, 0xFF, &Instruction, NMD_X86_MODE_64, NMD_X86_DECODER_FLAGS_ALL))
@@ -1486,7 +1498,12 @@ SDK_FUNCTION(void *, Code, Disassemble, void *Address, char *Buffer)
         return NULL;
     }
 
-    nmd_x86_format(&Instruction, Buffer, NMD_X86_INVALID_RUNTIME_ADDRESS, NMD_X86_FORMAT_FLAGS_DEFAULT);
+    nmd_x86_format(
+        &Instruction, 
+        Buffer, 
+        (uint64_t)(Address), 
+        _DISASM_MASK | ((Bytes) ? NMD_X86_FORMAT_FLAGS_BYTES : 0)
+    );
 
     return (void *)((char *)(Address) + Instruction.length);
 }

@@ -2,7 +2,8 @@ BIN=/home/razor/msvc/bin/x64 . /home/razor/msvc-wine/msvcenv-native.sh
 
 echo "Compiling dbdata.dll..."
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
         -flto -fuse-ld=lld -o dbdata.dll \
         -D_USRDLL -D_WINDLL \
@@ -10,7 +11,8 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
 
 echo "Compiling PluginLoader.dll..."
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format \
         -I./../SDK -I./.. \
         -flto -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
@@ -23,7 +25,8 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
 
 echo "Compiling HighPingKickFix.dll..."
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
         -flto -fuse-ld=lld -o HighPingKickFix.dll \
         -D_USRDLL -D_WINDLL \
@@ -31,7 +34,8 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprec
 
 echo "Compiling Playground5.dll..."
 
-clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
         -I./../SDK \
         -flto -fuse-ld=lld -o Playground5.dll \
         -D_USRDLL -D_WINDLL \

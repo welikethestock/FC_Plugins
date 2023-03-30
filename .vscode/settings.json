@@ -5,6 +5,7 @@
         "stralign.h": "c",
         "winapifamily.h": "c",
         "mutex": "c",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "string_view": "cpp"
     }
 }

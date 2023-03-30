@@ -8,7 +8,6 @@
 
 // linking to MessageBoxA or other user32 functions will fail otherwise (atleast it does on my linux setup)
 #pragma comment(lib, "user32.lib")
-
 #include <windows.h>
 
 // you are now entering macro heaven
@@ -46,54 +45,8 @@
 #define NAKED \
     _ATTRIBUTE(naked) NOINLINE
 
-// sdk stuff
-
-#define SDK_FUNCTION_NAME(Category, Name) \
-    SDK_##Category##_##Name
-
-#define SDK_FUNCTION(ReturnType, Category, Name, ...) \
-    ReturnType SDK_FUNCTION_NAME(Category, Name)(__VA_ARGS__) 
-
-#define IMPORT_SDK_FUNCTION(ReturnType, Category, Name, ...) \
-    static ReturnType(* _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name)))(__VA_ARGS__) = (_TYPE(_CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))))(GetProcAddress( \
-        GetModuleHandleA(_LOADER_DLL), \
-        _STRING(SDK_FUNCTION_NAME(Category, Name)) \
-    ))
-
-#define CALL_SDK_FUNCTION(Category, Name, ...) \
-    _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))(__VA_ARGS__)
-
-#define CALL_SDK_FUNCTION_DIRECT(Category, Name, ...) \
-    SDK_FUNCTION_NAME(Category, Name)(__VA_ARGS__)
-
-// plugin macro
-
-#define PLUGIN_ENTRY() \
-    HMODULE __SDK_Module; \
-    HMODULE __SDK_Us; \
-     \
-    static bool _PLUGIN_INIT(HMODULE, HMODULE); \
-     \
-    EXPORT_C \
-    bool Initialize(HMODULE _Module, HMODULE _Us) \
-    { \
-        __SDK_Module    = _Module; \
-        __SDK_Us        = _Us; \
-         \
-        return _PLUGIN_INIT(_Module, _Us); \
-    } \
-     \
-    bool _PLUGIN_INIT(HMODULE _Module, HMODULE _Us)
-
-// memory helpers
-
-#define _RELATIVE_TO_ABSOLUTE_32(Address) \
-    (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(int *)((char *)(Address)) ) + 0x4 ))
-
-#define _RELATIVE_TO_ABSOLUTE_16(Address) \
-    (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(short *)((char *)(Address)) ) + 0x2 ))
-
-#define _RELATIVE_TO_ABSOLUTE_8(Address) \
-    (_TYPE(Address))(( ( ((char *)(Address)) ) + ( *(char *)((char *)(Address)) ) + 0x1 ))
+#include "MacrosSDK.hpp"
+#include "MacrosMem.hpp"
+#include "Malloc.hpp" // make sure its included in every file
 
 #endif

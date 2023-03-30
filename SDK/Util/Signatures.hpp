@@ -17,6 +17,14 @@ namespace SDK
             char *Address = (char *)(CALL_SDK_FUNCTION(Signature, Find, Module, Signature, Mask));
             return (Address != NULL) ? (Address + Offset) : NULL;
         }
+
+        inline
+        size_t Create(void *Address, int Length, char *SignatureBuffer, char *MaskBuffer)
+        {
+            IMPORT_SDK_FUNCTION(size_t, Signature, Create, void *, int , char *, char *);
+
+            return CALL_SDK_FUNCTION(Signature, Create, Address, Length, SignatureBuffer, MaskBuffer);
+        }
     }
 }
 

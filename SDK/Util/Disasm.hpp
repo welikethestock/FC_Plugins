@@ -10,11 +10,11 @@ namespace SDK
     namespace Code
     {
         inline
-        void *Disassemble(void *Address, char *Buffer)
+        void *Disassemble(void *Address, char *Buffer, bool Bytes = false)
         {
-            IMPORT_SDK_FUNCTION(void *, Code, Disassemble, void *, char *);
+            IMPORT_SDK_FUNCTION(void *, Code, Disassemble, void *, char *, bool);
 
-            return CALL_SDK_FUNCTION(Code, Disassemble, Address, Buffer);
+            return CALL_SDK_FUNCTION(Code, Disassemble, Address, Buffer, Bytes);
         }
     }
 }
