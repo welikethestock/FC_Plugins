@@ -32,6 +32,15 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -D_USRDLL -D_WINDLL \
         ../Plugins/Universal/HighPingKickFix/Entry.cpp
 
+echo "Compiling Lua.dll..."
+
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -I./../SDK \
+        -flto -fuse-ld=lld -o Lua.dll \
+        -D_USRDLL -D_WINDLL \
+        ../Plugins/Universal/Lua/Entry.cpp
+
 echo "Compiling Playground5.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
@@ -45,8 +54,10 @@ echo "Done compiling..."
 
 rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/bin/PluginLoader.dll"
 rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/HighPingKickFix.dll"
+rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/Lua.dll"
 rm "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/Playground5.dll"
 
 cp "./PluginLoader.dll" "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/bin/PluginLoader.dll"
 cp "./HighPingKickFix.dll" "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/HighPingKickFix.dll"
+cp "./Lua.dll" "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/Lua.dll"
 cp "./Playground5.dll" "/home/razor/.local/share/bottles/bottles/Ubisoft/drive_c/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/Far Cry 5/plugins/Playground5.dll"

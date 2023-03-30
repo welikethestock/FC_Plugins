@@ -13,5 +13,6 @@
 #include "Util/Detours.hpp"
 
 #include "Game/Command.hpp"
+#include "Game/Lua.hpp"
 
 #endif

@@ -24,7 +24,7 @@ Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
 {
     _CtxUnhook(SetupCmd2);
 
-    SDK::Log::Message("stuff %s\n", Name);
+    //SDK::Log::Message("stuff %s\n", Name);
 
     return _Ctx.Get()(Cmd, Name, Unknown1);
 }
