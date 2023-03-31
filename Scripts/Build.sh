@@ -39,7 +39,8 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -I./../SDK \
         -flto -fuse-ld=lld -o Lua.dll \
         -D_USRDLL -D_WINDLL \
-        ../Plugins/Universal/Lua/Entry.cpp ../Plugins/Universal/Lua/luaL_register.cpp ../Plugins/Universal/Lua/luaB_print.cpp
+        ../Plugins/Universal/Lua/Entry.cpp ../Plugins/Universal/Lua/luaL_register.cpp ../Plugins/Universal/Lua/luaB_print.cpp \
+        ../Plugins/Universal/Lua/ScriptExecuter.cpp
 
 echo "Compiling Playground5.dll..."
 
