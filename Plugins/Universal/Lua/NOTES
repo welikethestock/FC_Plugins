@@ -1,0 +1,13 @@
+    local_150 = 0;
+    local_148 = 0;
+    local_170 = 0;
+    local_160 = 0;
+    local_130 = State;
+    iVar1 = lua_load(State,&getS,&LS,State->field16_0x10 - State->field29_0x40,State->field123_0xb0);
+    lVar3 = local_160;
+    plVar4 = State->field18_0x20;
+    (*(code *)plVar4[2])(plVar4[3],local_170,local_160,0); // possibly pcall
+    plVar4[0xf] = plVar4[0xf] - lVar3;
+
+    luaB_pcall
+    luaD_pcall
