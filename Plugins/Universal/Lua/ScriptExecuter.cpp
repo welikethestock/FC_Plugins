@@ -14,10 +14,10 @@
     ""
 
 static
-int(__cdecl *luaL_loadfile)(SDK::Game::lua_State *State, const char *File);
+int(__cdecl *luaL_loadfile)(SDK::Game::Lua::lua_State *State, const char *File);
 
 static
-int(__cdecl *luaB_pcall)(SDK::Game::lua_State *State);
+int(__cdecl *luaB_pcall)(SDK::Game::Lua::lua_State *State);
 
 bool ScriptExecuter::RunScript(const char *Script)
 {
@@ -35,6 +35,7 @@ bool ScriptExecuter::RunScript(const char *Script)
         return false;
     }
 
+    SDK::Game::Lua::StkId PreviousTop = Lua::State->Top;
     if(luaL_loadfile(Lua::State, Script) != 0) // error
     {
         SDK::Log::Message("[LUA]: Couldn't load %s...\n", Script);
@@ -42,10 +43,17 @@ bool ScriptExecuter::RunScript(const char *Script)
         return false;
     }
 
-    luaB_pcall(Lua::State);
-    // now we have to check for success and then pop result + returns off the stack
+    bool Success = false;
+    if(luaB_pcall(Lua::State) == 1)
+    {
+        Success = !(Lua::State->Top->Value.B == 0);
+    }
 
-    return true;
+    Lua::State->Top = PreviousTop;
+
+    SDK::Log::Message("[LUA] %s executing script...\n", (Success) ? "Success" : "Failure");
+
+    return Success;
 }
 
 bool ScriptExecuter::Initialize()

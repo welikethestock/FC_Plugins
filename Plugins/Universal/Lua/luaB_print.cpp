@@ -10,7 +10,7 @@ static
 SDK::Detour::SDetour *s_luaB_print;
 
 static
-int luaB_print(SDK::Game::lua_State *State)
+int luaB_print(SDK::Game::Lua::lua_State *State)
 {
     _CtxUnhook(luaB_print);
 
@@ -19,7 +19,7 @@ int luaB_print(SDK::Game::lua_State *State)
     return _Ctx.Get()(State);
 }
 
-bool Lua::luaB_print::Initialize(SDK::Game::lua_CFunction PrintPtr)
+bool Lua::luaB_print::Initialize(SDK::Game::Lua::lua_CFunction PrintPtr)
 {
     void *luaB_PrintPtr = NULL;
     if(GetModuleHandleA("FC_m64.dll") != NULL) // fc5 + nd

@@ -2,7 +2,7 @@
 
 namespace Lua
 {
-    SDK::Game::lua_State *State;
+    SDK::Game::Lua::lua_State *State;
 }
 
 #define FC5_luaL_RegisterPattern \
@@ -15,7 +15,7 @@ static
 SDK::Detour::SDetour *s_luaL_register = NULL;
 
 static
-void __cdecl luaL_register(SDK::Game::lua_State *State, const char *LibName, SDK::Game::luaL_Reg *Functions, long long Unknown1)
+void __cdecl luaL_register(SDK::Game::Lua::lua_State *State, const char *LibName, SDK::Game::Lua::luaL_Reg *Functions, long long Unknown1)
 {
     _CtxUnhook(luaL_register);
 

@@ -7,7 +7,7 @@
 namespace Lua
 {
     extern 
-    SDK::Game::lua_State *State;
+    SDK::Game::Lua::lua_State *State;
 
     namespace luaL_register
     {

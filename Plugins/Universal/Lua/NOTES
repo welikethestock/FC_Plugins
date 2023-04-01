@@ -11,3 +11,21 @@
 
     luaB_pcall
     luaD_pcall
+
+    // lua_State
+    GCObject        *Next;                  // 00
+    lu_byte         TT;                     // 08
+    lu_byte         Marked;                 // 09
+    lu_byte         Status;                 // 0A
+    StkId           Top;                    // 10
+    StkId           Base;                   // 18
+    global_State    *GState;                // 20
+    CallInfo        *CallInfo_;             // 28
+    Instruction     *SavedPC;               // 30
+    StkId           StackLast;              // 38
+    StkId           Stack;                  // 40
+    CallInfo        *EndCallInfo;           // 48
+    CallInfo        *BaseCallInfo;          // 50
+    int             StackSize;              // 58
+    int             SizeCallInfo;           // 5C
+    unsigned short  NestedCCalls;           // 60
