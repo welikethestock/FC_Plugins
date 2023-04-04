@@ -16,7 +16,7 @@ int luaB_print(SDK::Game::Lua::lua_State *State)
 
     if(State->Base->TT == LUA_TSTRING)
     {
-        SDK::Log::Message("[LUAMSG]: %s...\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
+        SDK::Log::Message("[LUAMSG]: %s\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
     }
 
     return _Ctx.Get()(State);
