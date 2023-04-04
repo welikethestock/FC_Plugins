@@ -3,6 +3,8 @@
 #define _LOG_HACK
 #include "Util/Log.hpp"
 
+bool(*InputHandlers[32])(const char *Input);
+
 bool Plugins::Load(HMODULE Module)
 {
     SDK::Log::Message("Loading plugins...\n");
@@ -44,6 +46,21 @@ bool Plugins::Load(HMODULE Module)
             FreeLibrary(Module);
 
             continue;
+        }
+
+        if(GetProcAddress(Plugin, "InputHandler") != NULL)
+        {
+            for(int Index = 0; Index < 32; ++Index)
+            {
+                if(InputHandlers[Index] != NULL)
+                {
+                    continue;
+                }
+
+                InputHandlers[Index] = (bool(*)(const char *))(GetProcAddress(Plugin, "InputHandler"));
+            }
+
+            SDK::Log::Message("Added Input Handler for %s...\n", FindData.cFileName);
         }
         
         SDK::Log::Message("Successfully loaded %s...\n", FindData.cFileName);

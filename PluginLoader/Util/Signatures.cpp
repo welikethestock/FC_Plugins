@@ -94,7 +94,7 @@ SDK_FUNCTION(size_t, Signature, Create, void *Address, int Length, char *Signatu
                 case NMD_X86_OPERAND_TYPE_MEMORY:
                 {
                     int _InstructionLength = InstructionLength;
-                    for(int Index = 0; Index < (_InstructionLength > 5 ? 5 : _InstructionLength); ++Index)
+                    for(int Index = 0; Index < (_InstructionLength > 8 ? 8 : _InstructionLength); ++Index)
                     {
                         Mask += '?';
                         Pattern += "\\x00";

@@ -2,8 +2,19 @@
 #include "luaB_print.hpp"
 #include "ScriptExecuter.hpp"
 
+INPUT_HANDLER(Command)
+{
+    if(Command == NULL || strstr(Command, "lua_open ") != Command)
+    {
+        return false;
+    }
+
+    return ScriptExecuter::RunScript(Command + sizeof("lua_open ") - 1);
+}
+
 PLUGIN_ENTRY()
 {
+    #if 0
     SDK::Log::Message(
         "%02X\n"
         "%02X\n"
@@ -38,6 +49,7 @@ PLUGIN_ENTRY()
         offsetof(SDK::Game::Lua::lua_State, SizeCallInfo),
         offsetof(SDK::Game::Lua::lua_State, NestedCCalls)
     );
+    #endif
 
     return (
         Lua::luaL_register::Initialize()

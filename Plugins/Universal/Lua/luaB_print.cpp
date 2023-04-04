@@ -14,7 +14,10 @@ int luaB_print(SDK::Game::Lua::lua_State *State)
 {
     _CtxUnhook(luaB_print);
 
-    SDK::Log::Message("[LUA]: print called...\n");
+    if(((State->Base) + 1)->TT == LUA_TSTRING)
+    {
+        SDK::Log::Message("[LUAMSG]: %s...\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
+    }
 
     return _Ctx.Get()(State);
 }

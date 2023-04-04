@@ -39,4 +39,8 @@
      \
     bool _PLUGIN_INIT(HMODULE _Module, HMODULE _Us)
 
+#define INPUT_HANDLER(String) \
+    EXPORT_C \
+    bool InputHandler(const char *String)
+
 #endif
