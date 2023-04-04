@@ -14,7 +14,7 @@ int luaB_print(SDK::Game::Lua::lua_State *State)
 {
     _CtxUnhook(luaB_print);
 
-    if(((State->Base) + 1)->TT == LUA_TSTRING)
+    if(State->Base->TT == LUA_TSTRING)
     {
         SDK::Log::Message("[LUAMSG]: %s...\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
     }
@@ -22,7 +22,7 @@ int luaB_print(SDK::Game::Lua::lua_State *State)
     return _Ctx.Get()(State);
 }
 
-bool Lua::luaB_print::Initialize(SDK::Game::Lua::lua_CFunction PrintPtr)
+bool Lua::luaB_print::Initialize()
 {
     void *luaB_PrintPtr = NULL;
     if(GetModuleHandleA("FC_m64.dll") != NULL) // fc5 + nd

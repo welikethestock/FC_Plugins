@@ -1,5 +1,6 @@
 #include "luaL_register.hpp"
 #include "luaB_print.hpp"
+#include "luaG_errormsg.hpp"
 #include "ScriptExecuter.hpp"
 
 INPUT_HANDLER(Command)
@@ -53,7 +54,8 @@ PLUGIN_ENTRY()
 
     return (
         Lua::luaL_register::Initialize()
-        && Lua::luaB_print::Initialize(NULL)
+        && Lua::luaB_print::Initialize()
+        && Lua::luaG_errormsg::Initialize()
         && ScriptExecuter::Initialize()
     );
 }

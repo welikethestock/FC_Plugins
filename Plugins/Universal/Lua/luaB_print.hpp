@@ -9,7 +9,7 @@ namespace Lua
     namespace luaB_print
     {
         extern
-        bool Initialize(SDK::Game::Lua::lua_CFunction PrintPtr);
+        bool Initialize();
     }
 }
 

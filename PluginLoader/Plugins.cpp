@@ -58,6 +58,8 @@ bool Plugins::Load(HMODULE Module)
                 }
 
                 InputHandlers[Index] = (bool(*)(const char *))(GetProcAddress(Plugin, "InputHandler"));
+
+                break;
             }
 
             SDK::Log::Message("Added Input Handler for %s...\n", FindData.cFileName);
