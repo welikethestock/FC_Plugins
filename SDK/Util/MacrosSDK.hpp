@@ -19,28 +19,36 @@
 #define CALL_SDK_FUNCTION(Category, Name, ...) \
     _CONCAT(s_, SDK_FUNCTION_NAME(Category, Name))(__VA_ARGS__)
 
+#define _SDK_PLUGINLOADER \
+    __SDK_Module
+
+#define _SDK_SELF \
+    __SDK_Us
+
+#include "Module.hpp"
+
 #define CALL_SDK_FUNCTION_DIRECT(Category, Name, ...) \
     SDK_FUNCTION_NAME(Category, Name)(__VA_ARGS__)
 
-    #define PLUGIN_ENTRY() \
-    HMODULE __SDK_Module; \
-    HMODULE __SDK_Us; \
+#define PLUGIN_ENTRY() \
+    DEFINE_MODULES(); \
      \
-    static bool _PLUGIN_INIT(HMODULE, HMODULE); \
+    static \
+    bool _PLUGIN_INIT(HMODULE, HMODULE); \
      \
     EXPORT_C \
     bool Initialize(HMODULE _Module, HMODULE _Us) \
     { \
-        __SDK_Module    = _Module; \
-        __SDK_Us        = _Us; \
+        _SDK_PLUGINLOADER   = _Module; \
+        _SDK_SELF           = _Us; \
          \
         return _PLUGIN_INIT(_Module, _Us); \
     } \
      \
-    bool _PLUGIN_INIT(HMODULE _Module, HMODULE _Us)
+    bool _PLUGIN_INIT(HMODULE, HMODULE)
 
-#define INPUT_HANDLER(String) \
+#define COMMAND_HANDLER(String) \
     EXPORT_C \
-    bool InputHandler(const char *String)
+    bool CommandHandler(const char *String)
 
 #endif

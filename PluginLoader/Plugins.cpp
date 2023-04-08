@@ -3,7 +3,7 @@
 #define _LOG_HACK
 #include "Util/Log.hpp"
 
-bool(*InputHandlers[32])(const char *Input);
+bool(*g_CommandHandlers[32])(const char *Input);
 
 bool Plugins::Load(HMODULE Module)
 {
@@ -48,16 +48,16 @@ bool Plugins::Load(HMODULE Module)
             continue;
         }
 
-        if(GetProcAddress(Plugin, "InputHandler") != NULL)
+        if(GetProcAddress(Plugin, "CommandHandler") != NULL)
         {
             for(int Index = 0; Index < 32; ++Index)
             {
-                if(InputHandlers[Index] != NULL)
+                if(g_CommandHandlers[Index] != NULL)
                 {
                     continue;
                 }
 
-                InputHandlers[Index] = (bool(*)(const char *))(GetProcAddress(Plugin, "InputHandler"));
+                g_CommandHandlers[Index] = (bool(*)(const char *))(GetProcAddress(Plugin, "CommandHandler"));
 
                 break;
             }

@@ -3,7 +3,7 @@
 #include "luaG_errormsg.hpp"
 #include "ScriptExecuter.hpp"
 
-INPUT_HANDLER(Command)
+COMMAND_HANDLER(Command)
 {
     if(Command == NULL || strstr(Command, "lua_open ") != Command)
     {

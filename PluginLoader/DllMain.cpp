@@ -2,14 +2,16 @@
 
 #include <windows.h>
 #include <stdio.h>
+
 #define _LOG_HACK
 #include "Util/Log.hpp"
 #include "Plugins.hpp"
-HMODULE __SDK_Module; // HACK
+
 FILE *StdOut, *StdIn;
+DEFINE_MODULES(); // hack
 
 extern
-bool(*InputHandlers[32])(const char *Input);
+bool(*g_CommandHandlers[32])(const char *Input);
 
 static
 void InputDispatcher()
@@ -29,12 +31,12 @@ void InputDispatcher()
             bool Handled = false;
             for(int Handler = 0; Handler < 32; ++Handler)
             {
-                if(InputHandlers[Handler] == NULL)
+                if(g_CommandHandlers[Handler] == NULL)
                 {
                     break;
                 }
 
-                if((Handled = InputHandlers[Handler](Buffer)))
+                if((Handled = g_CommandHandlers[Handler](Buffer)))
                 {
                     break;
                 }
