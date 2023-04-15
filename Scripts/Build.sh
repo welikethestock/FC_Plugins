@@ -1,32 +1,35 @@
 BIN=/home/razor/msvc/bin/x64 . /home/razor/msvc-wine/msvcenv-native.sh
 
+: '
 echo "Compiling dbdata.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o dbdata.dll \
         -D_USRDLL -D_WINDLL \
         ../Proxy/DBData.cpp
+'
 
 echo "Compiling PluginLoader.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format -Wno-gnu-string-literal-operator-template \
         -I./../SDK -I./.. \
         -flto -fuse-ld=lld -o PluginLoader.dll \
         -D_USRDLL -D_WINDLL \
-        ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp \
+        ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp ../PluginLoader/Game.cpp \
         ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp \
         ../nmd/assembly/nmd_common.c ../nmd/assembly/nmd_x86_assembler.c ../nmd/assembly/nmd_x86_decoder.c \
         ../nmd/assembly/nmd_x86_formatter.c ../nmd/assembly/nmd_x86_ldisasm.c ../PluginLoader/Util/Disasm.cpp \
-        ../PluginLoader/Util/Bytepatch.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp \
-        ../PluginLoader/Game/Command.cpp
+        ../PluginLoader/Util/Bytepatch.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp ../PluginLoader/Util/Offset.cpp \
+        ../PluginLoader/Game/Command.cpp ../PluginLoader/Game/Entity/EntityList.cpp ../PluginLoader/Game/Entity/CEntity.cpp
 
+: '
 echo "Compiling HighPingKickFix.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined-Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o HighPingKickFix.dll \
         -D_USRDLL -D_WINDLL \
@@ -35,7 +38,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
 echo "Compiling Lua.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o Lua.dll \
         -D_USRDLL -D_WINDLL \
@@ -45,11 +48,21 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
 echo "Compiling Playground5.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o Playground5.dll \
         -D_USRDLL -D_WINDLL \
         ../Plugins/5/Playground/Entry.cpp
+
+'
+
+echo "Compiling Test.exe..."
+
+clang   --target=x86_64-windows-msvc -Wl,/subsystem:console -O3 \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format -Wno-gnu-string-literal-operator-template \
+        -I./../SDK \
+        -flto -fuse-ld=lld -o Test.exe \
+        ../Test/Main.cpp
 
 echo "Done compiling..."
 

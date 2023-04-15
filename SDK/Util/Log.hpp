@@ -30,7 +30,7 @@ namespace SDK
 
             return CALL_SDK_FUNCTION(Log, Message, Buffer);
         #else
-            return SDK_FUNCTION_NAME(Log, Message)(Buffer);
+            return CALL_SDK_FUNCTION_DIRECT(Log, Message, Buffer);
         #endif
         }
     }

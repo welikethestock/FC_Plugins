@@ -1,7 +1,9 @@
-#ifndef __SDK__
-#define __SDK__
+#ifndef __SDK_INCLUDE__
+#define __SDK_INCLUDE__
 
 #include "Util/Module.hpp"
+#include "Util/String.hpp"
+#include "Util/Hash.hpp"
 #include "Util/Macros.hpp"
 #include "Util/Intrinsics.hpp"
 #include "Util/Malloc.hpp"

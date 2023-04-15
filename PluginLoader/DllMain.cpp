@@ -6,6 +6,7 @@
 #define _LOG_HACK
 #include "Util/Log.hpp"
 #include "Plugins.hpp"
+#include "Game.hpp"
 
 FILE *StdOut, *StdIn;
 DEFINE_MODULES(); // hack
@@ -67,6 +68,11 @@ DllMain(HMODULE Module, DWORD Reason, void *)
         AllocConsole();
         StdOut = freopen("CONOUT$", "w", stdout);
         StdIn  = freopen("CONIN$", "r", stdin);
+
+        if(!Game::Initialize())
+        {
+            return TRUE;
+        }
 
         if(!Plugins::Load(Module))
         {
