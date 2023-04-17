@@ -5,6 +5,7 @@
 #include "Util/String.hpp"
 #include "Util/Hash.hpp"
 #include "Util/Macros.hpp"
+#include "Util/Offset.hpp"
 #include "Util/Intrinsics.hpp"
 #include "Util/Malloc.hpp"
 #include "Util/Log.hpp"
@@ -16,5 +17,7 @@
 
 #include "Game/Command.hpp"
 #include "Game/Lua.hpp"
+#include "Game/Entity/CEntity.hpp"
+#include "Game/Entity/List.hpp"
 
 #endif

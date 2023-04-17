@@ -5,13 +5,16 @@
 
 namespace SDK
 {
-    namespace Entity
+    namespace Game
     {
-        class CEntity;
+        namespace Entity
+        {
+            class CEntity;
+        }
     }
 }
 
-class SDK::Entity::CEntity
+class SDK::Game::Entity::CEntity
 {
 public:
     inline

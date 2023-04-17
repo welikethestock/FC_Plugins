@@ -7,7 +7,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o dbdata.dll \
-        -D_USRDLL -D_WINDLL \
+        -D_USRDLL -D_WINDLL -D_ASM_HACK \
         ../Proxy/DBData.cpp
 '
 
@@ -17,7 +17,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format-security -Wno-return-type-c-linkage -Wno-writable-strings -Wno-format -Wno-gnu-string-literal-operator-template \
         -I./../SDK -I./.. \
         -flto -fuse-ld=lld -o PluginLoader.dll \
-        -D_USRDLL -D_WINDLL \
+        -D_USRDLL -D_WINDLL -D_ASM_HACK \
         ../PluginLoader/DllMain.cpp ../PluginLoader/Plugins.cpp ../PluginLoader/Game.cpp \
         ../PluginLoader/Util/Log.cpp ../PluginLoader/Util/Signatures.cpp \
         ../nmd/assembly/nmd_common.c ../nmd/assembly/nmd_x86_assembler.c ../nmd/assembly/nmd_x86_decoder.c \
@@ -25,14 +25,14 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         ../PluginLoader/Util/Bytepatch.cpp ../PluginLoader/Util/Stubs.cpp ../PluginLoader/Util/Detours.cpp ../PluginLoader/Util/Offset.cpp \
         ../PluginLoader/Game/Command.cpp ../PluginLoader/Game/Entity/EntityList.cpp ../PluginLoader/Game/Entity/CEntity.cpp
 
-: '
+
 echo "Compiling HighPingKickFix.dll..."
 
 clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
-        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined-Wno-gnu-string-literal-operator-template \
+        -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o HighPingKickFix.dll \
-        -D_USRDLL -D_WINDLL \
+        -D_USRDLL -D_WINDLL -D_ASM_HACK \
         ../Plugins/Universal/HighPingKickFix/Entry.cpp
 
 echo "Compiling Lua.dll..."
@@ -41,7 +41,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o Lua.dll \
-        -D_USRDLL -D_WINDLL \
+        -D_USRDLL -D_WINDLL -D_ASM_HACK \
         ../Plugins/Universal/Lua/Entry.cpp ../Plugins/Universal/Lua/luaL_register.cpp ../Plugins/Universal/Lua/luaB_print.cpp \
         ../Plugins/Universal/Lua/luaG_errormsg.cpp ../Plugins/Universal/Lua/ScriptExecuter.cpp
 
@@ -51,10 +51,10 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:windows,/DLL -O3 \
         -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o Playground5.dll \
-        -D_USRDLL -D_WINDLL \
+        -D_USRDLL -D_WINDLL -D_ASM_HACK \
         ../Plugins/5/Playground/Entry.cpp
 
-'
+
 
 echo "Compiling Test.exe..."
 
@@ -62,6 +62,7 @@ clang   --target=x86_64-windows-msvc -Wl,/subsystem:console -O3 \
         -Wno-inline-new-delete -Wno-implicit-exception-spec-mismatch -Wno-deprecated-declarations -Wno-pragma-pack -Wno-macro-redefined -Wno-format -Wno-gnu-string-literal-operator-template \
         -I./../SDK \
         -flto -fuse-ld=lld -o Test.exe \
+        -D_ASM_HACK \
         ../Test/Main.cpp
 
 echo "Done compiling..."

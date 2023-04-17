@@ -6,34 +6,37 @@
 
 namespace SDK
 {
-    namespace Entity
+    namespace Game
     {
-        namespace List
+        namespace Entity
         {
-            inline
-            unsigned long long Count()
+            namespace List
             {
-                IMPORT_SDK_FUNCTION(unsigned long long, EntityList, Count);
+                inline
+                unsigned long long Count()
+                {
+                    IMPORT_SDK_FUNCTION(unsigned long long, EntityList, Count);
 
-                return CALL_SDK_FUNCTION(EntityList, Count);
+                    return CALL_SDK_FUNCTION(EntityList, Count);
+                }
+
+                inline
+                CEntity *GetEntity(unsigned long long Index)
+                {
+                    IMPORT_SDK_FUNCTION(CEntity *, EntityList, GetEntity, unsigned long long);
+
+                    return CALL_SDK_FUNCTION(EntityList, GetEntity, Index);
+                }
+
+                inline
+                CEntity *GetLocalPlayer()
+                {
+                    IMPORT_SDK_FUNCTION(CEntity *, EntityList, GetLocalPlayer);
+
+                    return CALL_SDK_FUNCTION(EntityList, GetLocalPlayer);
+                }
             }
-
-            inline
-            CEntity *GetEntity(unsigned long long Index)
-            {
-                IMPORT_SDK_FUNCTION(CEntity *, EntityList, GetEntity, unsigned long long);
-
-                return CALL_SDK_FUNCTION(EntityList, GetEntity, Index);
-            }
-
-            inline
-            CEntity *GetLocalPlayer()
-            {
-                IMPORT_SDK_FUNCTION(CEntity *, EntityList, GetLocalPlayer);
-
-                return CALL_SDK_FUNCTION(EntityList, GetLocalPlayer);
-            }
-        }
+        }        
     }
 }
 

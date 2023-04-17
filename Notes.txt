@@ -1,0 +1,6 @@
+Entity Class Hierarchy:
+
+    CNomadObject
+    CBaseEntity
+    CEntity
+    

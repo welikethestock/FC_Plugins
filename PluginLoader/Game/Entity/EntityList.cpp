@@ -2,10 +2,15 @@
 #define _OFFSET_HACK
 #include "Util/Offset.hpp"
 
+// I am not sure if this is correct, but if it is not that is not a problem as I have tracked down more things
+// Wonder if its even useful to do this at all, since most of the stuff is in Lua
+// I'd guess it'd be useful for things like nospread or something though... maybe an aimbot
+// They don't even use LuaJIT... lol
+
 struct Record
 {
     unsigned long long  Unknown;
-    class CEntity      *Entity;
+    class CEntity       *Entity;
 };
 
 struct EntityList
@@ -13,7 +18,7 @@ struct EntityList
 private:
     char                PAD_00_08[0x08];
 public:
-    Record              **Records; // 0x08-0x10
+    Record              **Records;
     unsigned long long  Count;
 };
  
@@ -22,13 +27,13 @@ EntityList *g_EntityList = NULL;
 EXPORT_C
 SDK_FUNCTION(unsigned long long, EntityList, Count)
 {
-    return ((g_EntityList->Count >> 0x20) & 0x7FFFFFFF);
+    return ((g_EntityList->Count >> 32) & 0x7FFFFFFF);
 }
 
 EXPORT_C
 SDK_FUNCTION(Record *, EntityList, GetRecord, unsigned long long Index)
 {
-    if(CALL_SDK_FUNCTION_DIRECT(EntityList, Count) <= Index)
+    if(Index >= CALL_SDK_FUNCTION_DIRECT(EntityList, Count))
     {
         return NULL;
     }

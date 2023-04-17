@@ -35,15 +35,18 @@ int c = 1;
 EXPORT_C NAKED
 void Test2()
 {
+#ifdef _ASM_HACK
     __asm
     {
         ret
     }
+#endif
 }
 
 EXPORT_C NAKED
 void Test()
 {
+#ifdef _ASM_HACK
     __asm
     {
         mov rax, 1122334455667788h
@@ -54,6 +57,28 @@ void Test()
         call Test2
         ret
     }
+#endif
+}
+
+COMMAND_HANDLER(Command)
+{
+    if(strncmp("print_ents", Command, sizeof("print_ents") - 1) != 0)
+    {
+        return false;
+    }
+
+    for(unsigned long long Index = 0; Index < SDK::Game::Entity::List::Count(); ++Index)
+    {
+        SDK::Game::Entity::CEntity *Entity = SDK::Game::Entity::List::GetEntity(Index);
+        if(Entity == NULL)
+        {
+            continue;
+        }
+
+        SDK::Log::Message("-> %d %p %p\n", Index, Entity, Entity->GetID());
+    }
+
+    return true;
 }
 
 PLUGIN_ENTRY()
@@ -63,8 +88,8 @@ PLUGIN_ENTRY()
 
     void *Address = (char *)(&Test);
     char Buffer[128];
-
 #if 0
+
     SDK::Log::Message("%p %p %p %p %p\n",
         Address,
         _RELATIVE_TO_ABSOLUTE_8_EX(void *, Address, 0x1),
