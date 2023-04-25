@@ -79,10 +79,19 @@ private:
 #define _ExCtxUnhookEx(Function, Info, CtxName) \
     SDK::Detour::CtxSensitiveUnhook<_TYPE(Function) *> CtxName(Info)
 
+#define _CtxName(Function) \
+    _CONCAT(_, _CONCAT(Function, _Ctx))
+
 #define _CtxUnhookEx(Function, Info) \
-    _ExCtxUnhookEx(Function, Info, _Ctx)
+    _ExCtxUnhookEx(Function, Info, _CtxName(Function))
 
 #define _CtxUnhook(Function) \
     _CtxUnhookEx(Function, _CONCAT(s_, Function))
+
+#define _Ctx(Function) \
+    _CtxName(Function)
+
+#define _CtxCallOriginal(Function, ...) \
+    _Ctx(Function).Get()(__VA_ARGS__)
 
 #endif

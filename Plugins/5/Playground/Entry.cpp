@@ -26,7 +26,7 @@ Command2 *__fastcall SetupCmd2(Command2 *Cmd, char *Name, int Unknown1)
 
     //SDK::Log::Message("stuff %s\n", Name);
 
-    return _Ctx.Get()(Cmd, Name, Unknown1);
+    return _CtxCallOriginal(SetupCmd2, Cmd, Name, Unknown1);
 }
 
 static
@@ -35,18 +35,15 @@ int c = 1;
 EXPORT_C NAKED
 void Test2()
 {
-#ifdef _ASM_HACK
     __asm
     {
         ret
     }
-#endif
 }
 
 EXPORT_C NAKED
 void Test()
 {
-#ifdef _ASM_HACK
     __asm
     {
         mov rax, 1122334455667788h
@@ -57,7 +54,6 @@ void Test()
         call Test2
         ret
     }
-#endif
 }
 
 COMMAND_HANDLER(Command)

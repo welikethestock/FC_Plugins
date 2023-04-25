@@ -32,6 +32,10 @@ namespace SDK
             typedef void (*lua_Hook) (lua_State *, lua_Debug *);
 
             struct lua_longjmp;
+
+            struct ZIO;
+            struct Mbuffer;
+            struct SParser;
         }
     }
 }
@@ -120,6 +124,20 @@ struct SDK::Game::Lua::lua_State
     GCObject        *GCList;
     lua_longjmp     *ErrorJmp;
     long long       ErrorFunction;
+};
+
+struct SDK::Game::Lua::Mbuffer 
+{
+  char              *Buffer;
+  size_t            n;
+  size_t            BufferSize;
+};
+
+struct SDK::Game::Lua::SParser
+{
+    ZIO             *Z;
+    Mbuffer         Buffer;
+    const char      *Name;
 };
 
 #endif

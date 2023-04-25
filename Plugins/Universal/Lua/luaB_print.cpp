@@ -19,7 +19,7 @@ int luaB_print(SDK::Game::Lua::lua_State *State)
         SDK::Log::Message("[LUAMSG]: %s\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
     }
 
-    return _Ctx.Get()(State);
+    return _CtxCallOriginal(luaB_print, State);
 }
 
 bool Lua::luaB_print::Initialize()

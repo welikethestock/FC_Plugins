@@ -16,10 +16,19 @@ int luaG_errormsg(SDK::Game::Lua::lua_State *State)
 
     if(((State->Base))->TT == LUA_TSTRING)
     {
-        SDK::Log::Message("[LUAMSG]: %s\n", (&(((State->Base)->Value.GC->TS.TSV))) + 1);
+        auto Stk = State->Base;
+        while(Stk != (State->Top + 1))
+        {
+            if(Stk->TT == LUA_TSTRING)
+            {
+                SDK::Log::Message("[LUAMSG]: %s\n", (&((Stk->Value.GC->TS.TSV))) + 1);
+            }
+
+            Stk = Stk + 1;
+        }
     }
 
-    return _Ctx.Get()(State);
+    return _CtxCallOriginal(luaG_errormsg, State);
 }
 
 bool Lua::luaG_errormsg::Initialize()

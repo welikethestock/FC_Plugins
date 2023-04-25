@@ -1,6 +1,8 @@
 #include "luaL_register.hpp"
 #include "luaB_print.hpp"
 #include "luaG_errormsg.hpp"
+#include "lua_load.hpp"
+#include "f_parser.hpp"
 #include "ScriptExecuter.hpp"
 
 COMMAND_HANDLER(Command)
@@ -56,6 +58,8 @@ PLUGIN_ENTRY()
         Lua::luaL_register::Initialize()
         && Lua::luaB_print::Initialize()
         && Lua::luaG_errormsg::Initialize()
+        // && Lua::lua_load::Initialize()
+        && Lua::f_parser::Initialize()
         && ScriptExecuter::Initialize()
     );
 }

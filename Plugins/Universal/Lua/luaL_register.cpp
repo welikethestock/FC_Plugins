@@ -25,7 +25,7 @@ void __cdecl luaL_register(SDK::Game::Lua::lua_State *State, const char *LibName
         Lua::State = State;
     }
 
-    return _Ctx.Get()(State, LibName, Functions, Unknown1);
+    return _CtxCallOriginal(luaL_register, State, LibName, Functions, Unknown1);
 }
 
 bool Lua::luaL_register::Initialize()
